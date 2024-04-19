@@ -23,9 +23,9 @@ python generateASSamplesCondor.py operationMode --signalMassCSVFile test.csv --n
     - Your jobs should show as either ‘idle’ or ‘running’ (there should be 1 job submitted per mass point).
     - If your job gets held, this could be due to running out of space in the output area. Once space is cleared, use condor_release user1 to release held jobs for user1.
     - Finished correctly if:
-        - There are files named according to each mass point (e.g. di_higgs_mH400.0_mS1000.0_mZd20.0)
+        - There are folders named according to each mass point (e.g. di_higgs_mH400.0_mS1000.0_mZd20.0)
         - Each of these folders has a large EVNT.root file (>100Mb)
-- Move these ‘di_higgs…’ folders to the EOS diH-condor/ directory.
+- Move these folders to the EOS diH-condor/ directory.
 - In the EOS condor-gen/ directory, run the command to submit truth-reconstruction job to Condor:
 python generateASSamplesCondor.py operationMode --signalMassCSVFile test.csv --nEventsToGenerate 100 --workdir /eos/user/c/connell/met4l-analysis/xola-gen-code/diH-condor/events1 --signalType di_higgs --dryRun
     - operationMode tells Condor whether to generate events, make truth files etc. Should be replaced with truthDAODConversion here.
