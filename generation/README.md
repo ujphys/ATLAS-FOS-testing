@@ -5,8 +5,8 @@ Condor instructions for AFS:
 There are ongoing permission issues with running HTCondor on EOS - in the meantime we use a workaround to produce the events code in AFS, move the file to EOS, then run reconstruction code in EOS.
 - First, copy the condor-gen directory to both EOS and AFS
 - Setup environments in each folder:
-- - setupATLAS
--  - asetup Athena,main,latest
+    - setupATLAS
+    - asetup Athena,main,latest
 - Go to your AFS directory for the code:
 - In generateASSamplesCondor.py, check that:
 - - On line 12/13, os.sys.path.append() should be set to the events1 directory
@@ -22,8 +22,8 @@ python generateASSamplesCondor.py operationMode --signalMassCSVFile test.csv --n
 - - Use condor_q to check the status of the command.
 - - Your jobs should show as either ‘idle’ or ‘running’ (there should be 1 job submitted per mass point).
 - - If your job gets held, this could be due to running out of space in the output area. Once space is cleared, use condor_release user1 to release held jobs for user1.
-- - Finished correctly if:
-- - - There are files named according to each mass point (e.g. di_higgs_mH400.0_mS1000.0_mZd20.0)
+    - Finished correctly if:
+        - There are files named according to each mass point (e.g. di_higgs_mH400.0_mS1000.0_mZd20.0)
 - - - Each of these folders has a large EVNT.root file (>100Mb)
 - Move these ‘di_higgs…’ folders to the EOS diH-condor/ directory.
 - In the EOS condor-gen/ directory, run the command to submit truth-reconstruction job to Condor:
