@@ -1,0 +1,7 @@
+#Files
+*/.*
+*.exe
+*~
+*.swp
+
+.DS_store
