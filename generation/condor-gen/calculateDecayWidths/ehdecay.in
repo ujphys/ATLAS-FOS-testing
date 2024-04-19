@@ -1,0 +1,104 @@
+SLHAIN   = 0
+SLHAOUT  = 0
+COUPVAR  = 0
+HIGGS    = 0
+SM4      = 0
+FERMPHOB = 0
+MODEL    = 1
+TGBET    = 30.D0
+MABEG    = 110.000000D0
+MAEND    = 1000.D0
+NMA      = 1
+ALS(MZ)  = 0.119D0
+MSBAR(2) = 0.100D0
+MC       = 1.42D0
+MB       = 4.49D0
+MT       = 172.5D0
+MTAU     = 1.77684D0
+MMUON    = 0.105658367D0
+1/ALPHA  = 137.0359997D0
+GF       = 1.16637D-5
+GAMW     = 2.08856D0
+GAMZ     = 2.49581D0
+MZ       = 91.15349D0
+MW       = 80.36951D0
+VUS      = 0.22534D0
+VCB      = 0.0412D0
+VUB/VCB  = 0.0846D0
+********************* 4TH GENERATION *************************************
+  SCENARIO FOR ELW. CORRECTIONS TO H -> GG (EVERYTHING IN GEV):
+  GG_ELW = 1: MTP = 500    MBP = 450    MNUP = 375    MEP = 450
+  GG_ELW = 2: MBP = MNUP = MEP = 600    MTP = MBP+50*(1+LOG(M_H/115)/5)
+
+GG_ELW   = 1
+MTP      = 500.D0
+MBP      = 450.D0
+MNUP     = 375.D0
+MEP      = 450.D0
+**************************************************************************
+SUSYSCALE= 1000.D0
+MU       = 1000.D0
+M2       = 1000.D0
+MGLUINO  = 1000.D0
+MSL1     = 1000.D0
+MER1     = 1000.D0
+MQL1     = 1000.D0
+MUR1     = 1000.D0
+MDR1     = 1000.D0
+MSL      = 1000.D0
+MER      = 1000.D0
+MSQ      = 1000.D0
+MUR      = 1000.D0
+MDR      = 1000.D0
+AL       = 1000.D0
+AU       = 1000.D0
+AD       = 1000.D0
+NNLO (M) = 0
+ON-SHELL = 0
+ON-SH-WZ = 0
+IPOLE    = 0
+OFF-SUSY = 0
+INDIDEC  = 0
+NF-GG    = 5
+IGOLD    = 0
+MPLANCK  = 2.4D18
+MGOLD    = 1.D-13
+************** LAGRANGIAN 0 - chiral  1 - SILH  2 - MCHM4/5 **************
+LAGPARAM = 0
+**** Turn off (0) or on (1) the elw corrections for LAGPARAM = 1 or 2 ****
+IELW     = 1
+******************* VARIATION OF HIGGS COUPLINGS *************************
+CW       = 1.D0
+CZ       = 1.D0
+Ctau     = 0.95D0
+Cmu      = 0.95D0
+Ct       = 0.95D0
+Cb       = 0.95D0
+Cc       = 0.95D0
+Cs       = 0.95D0
+Cgaga    = 0.005D0
+Cgg      = 0.001D0
+CZga     = 0.D0
+CWW      = 0.D0
+CZZ      = 0.D0
+CWdW     = 0.D0
+CZdZ     = 0.D0
+**************************** SILH Lagrangian *****************************
+CHbar    = 0.D0
+CTbar    = 0.D0
+Ctaubar  = 0.D0
+Cmubar   = 0.D0
+Ctbar    = 0.D0
+Cbbar    = 0.D0
+Ccbar    = 0.D0
+Csbar    = 0.D0
+CWbar    = 0.D0
+CBbar    = 0.D0
+CHWbar   = 0.D0
+CHBbar   = 0.D0
+Cgambar  = 0.D0
+Cgbar    = 0.D0
+******** MCHM4 (fermrepr=1), MCHM5 (fermrepr=2) parametrisation ********
+fermrepr = 1
+xi       = 0.D0
+

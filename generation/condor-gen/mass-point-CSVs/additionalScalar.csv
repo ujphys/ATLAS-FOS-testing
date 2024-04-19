@@ -1,0 +1,8 @@
+# if your selected physics process does not have mfd1 or mfd2, set their values to zero
+mH,mS,mZd
+500,110,20
+500,110,30
+500,110,40
+500,110,50
+500,110,60
+500,110,90

@@ -1,0 +1,16 @@
+universe                = vanilla
+executable              = <executionScript.sh>
+# Get the environment from the submission host?
+#arguments               = $Fnx(filename)
+output                  = $(ClusterId).$(ProcId).out
+error                   = $(ClusterId).$(ProcId).err
+log                     = $(ClusterID).log
+getenv                  = True
+#should_transfer_files   = YES
+#when_to_transfer_output = ON_EXIT
+# +MaxRuntime = Number of seconds
++JobFlavour = "longlunch"
+#+MaxRuntime = 1200
+
+
+Queue 1
