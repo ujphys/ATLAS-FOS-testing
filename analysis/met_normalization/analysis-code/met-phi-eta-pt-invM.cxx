@@ -139,6 +139,7 @@ StatusCode MyxAODAnalysis :: execute ()
     for( ; truth_itr != truth_end ; ++truth_itr){
         //ANA_MSG_INFO("__________________begin loop " << n_events << "____________________");
 
+        /*------------------------ SECTION 1 - FIND PARTICLES, GET KINEMATICS ------------------------*/
         const xAOD::TruthParticle* truth = *truth_itr;
         //Initialize bitmask variables
         bool l1_bool = false;
@@ -239,13 +240,13 @@ StatusCode MyxAODAnalysis :: execute ()
             }//close Higgs decay check
         }//close Higgs check
 
-        //Stats for all cases combined
-        //Basic MET try
-        //for ( auto MissingET : *truth_MET ){hist ("h_missingET")->Fill (MissingET->sumet()/1000);}
+
         
+        /*------------------------ SECTION 2 - BITMASK AND FILL HISTOGRAMS ------------------------*/
+        //for ( auto MissingET : *truth_MET ){hist ("h_missingET")->Fill (MissingET->sumet()/1000);} //Get simple MET
+
         //Separating 44 and 22 cases
         int bitmask = pow(2,3)*l1_bool + pow(2,2)*l3_bool + pow(2,1)*l5_bool + pow(2,0)*l7_bool;
-
 
         //ANA_MSG_INFO(l1_bool << l2_bool << l3_bool << l4_bool << l5_bool << l6_bool << l7_bool << l8_bool);
         //check 44 case
