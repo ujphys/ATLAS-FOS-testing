@@ -28,7 +28,81 @@ public:
     // protected from being send from the submission node to the worker
     // node (done by the //!)
 public:
-
+    //Mass hists
+    TH1D* h_mH = new TH1D();
+    TH1D* h_mS = new TH1D();
+    TH1D* h_mZd = new TH1D();
+    TH1D* h_m4l = new TH1D();
+    TH1D* h_m2l = new TH1D();
+    TH1D* h_m2l_leading = new TH1D();
+    TH1D* h_m2l_subleading = new TH1D();
+    //pT hists
+    TH1D* h_pT_H = new TH1D();
+    // TH1D* h_pT_S = new TH1D();
+    TH1D* h_pT_S1 = new TH1D();
+    TH1D* h_pT_S2 = new TH1D();
+    // TH1D* h_pT_Zd = new TH1D();
+    TH1D* h_pT_Zd1 = new TH1D();
+    TH1D* h_pT_Zd2 = new TH1D();
+    TH1D* h_pT_Zd3 = new TH1D();
+    TH1D* h_pT_Zd4 = new TH1D();
+    // TH1D* h_pT_4l = new TH1D();            //All leptons
+    // TH1D* h_pT_2l = new TH1D();
+    // TH1D* h_pT_2l_leading = new TH1D();
+    // TH1D* h_pT_2l_subleading = new TH1D();
+    // TH1D* h_pT_4e = new TH1D();            //Electrons
+    // TH1D* h_pT_2e = new TH1D();
+    TH1D* h_pT_2e_leading = new TH1D();
+    TH1D* h_pT_2e_subleading = new TH1D();
+    // TH1D* h_pT_4u = new TH1D();            //Muons
+    // TH1D* h_pT_2u = new TH1D();
+    TH1D* h_pT_2u_leading = new TH1D();
+    TH1D* h_pT_2u_subleading = new TH1D();
+    //Eta hists
+    TH1D* h_eta_H = new TH1D();
+    // TH1D* h_eta_S = new TH1D();
+    TH1D* h_eta_S1 = new TH1D();
+    TH1D* h_eta_S2 = new TH1D();
+    // TH1D* h_eta_Zd = new TH1D();
+    TH1D* h_eta_Zd1 = new TH1D();
+    TH1D* h_eta_Zd2 = new TH1D();
+    TH1D* h_eta_Zd3 = new TH1D();
+    TH1D* h_eta_Zd4 = new TH1D();
+    // TH1D* h_eta_4l = new TH1D();            //All leptons
+    // TH1D* h_eta_2l = new TH1D();
+    // TH1D* h_eta_2l_leading = new TH1D();
+    // TH1D* h_eta_2l_subleading = new TH1D();
+    // TH1D* h_eta_4e = new TH1D();            //Electrons
+    // TH1D* h_eta_2e = new TH1D();
+    TH1D* h_eta_2e_leading = new TH1D();
+    TH1D* h_eta_2e_subleading = new TH1D();
+    // TH1D* h_eta_4u = new TH1D();            //Muons
+    // TH1D* h_eta_2u = new TH1D();
+    TH1D* h_eta_2u_leading = new TH1D();
+    TH1D* h_eta_2u_subleading = new TH1D();
+    //Phi hists
+    TH1D* h_phi_H = new TH1D();
+    // TH1D* h_phi_S = new TH1D();
+    TH1D* h_phi_S1 = new TH1D();
+    TH1D* h_phi_S2 = new TH1D();
+    // TH1D* h_phi_Zd = new TH1D();
+    TH1D* h_phi_Zd1 = new TH1D();
+    TH1D* h_phi_Zd2 = new TH1D();
+    TH1D* h_phi_Zd3 = new TH1D();
+    TH1D* h_phi_Zd4 = new TH1D();
+    // TH1D* h_phi_4l = new TH1D();            //All leptons
+    // TH1D* h_phi_2l = new TH1D();
+    // TH1D* h_phi_2l_leading = new TH1D();
+    // TH1D* h_phi_2l_subleading = new TH1D();
+    // TH1D* h_phi_4e = new TH1D();            //Electrons
+    // TH1D* h_phi_2e = new TH1D();
+    TH1D* h_phi_2e_leading = new TH1D();
+    TH1D* h_phi_2e_subleading = new TH1D();
+    // TH1D* h_phi_4u = new TH1D();            //Muons
+    // TH1D* h_phi_2u = new TH1D();
+    TH1D* h_phi_2u_leading = new TH1D();
+    TH1D* h_phi_2u_subleading = new TH1D();
+    //MET hists
     TH1* h_missingET;
     TH1* h_missingET_Xscaled;
     TH1D* h_missingET_NonInt = new TH1D();

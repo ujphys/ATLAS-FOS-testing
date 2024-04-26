@@ -65,6 +65,42 @@ StatusCode MyxAODAnalysis :: initialize ()
     //Mass
     // ANA_CHECK (book (TH1F("h_H_Mass","h_H_Mass",100,0,1000)));
 
+    //Progenitor (H)
+    ANA_CHECK (book (TH1D("h_mH", "h_mH", 100, 0, 900)));
+    ANA_CHECK (book (TH1D("h_pT_H", "h_pT_H", 100, 0, 500)));
+    ANA_CHECK (book (TH1D("h_eta_H","h_eta_H", 100, -3.5, 3.5)));
+    ANA_CHECK (book (TH1D("h_phi_H", "h_phi_H", 100, -8.0, 8.0)));
+    //Additional Scalar (S)
+    ANA_CHECK (book (TH1D("h_mS", "h_mS", 100, 0, 200)));
+    // ANA_CHECK (book (TH1D("h_pT_S", "h_pT_S", 100, 0, 500)));
+    ANA_CHECK (book (TH1D("h_pT_S1", "h_pT_S1", 100, 0, 500)));
+    ANA_CHECK (book (TH1D("h_pT_S2", "h_pT_S2", 100, 0, 500)));
+    // ANA_CHECK (book (TH1D("h_eta_S","h_eta_S", 100, -3.5, 3.5)));
+    ANA_CHECK (book (TH1D("h_eta_S1","h_eta_S1", 100, -3.5, 3.5)));
+    ANA_CHECK (book (TH1D("h_eta_S2","h_eta_S2", 100, -3.5, 3.5)));
+    // ANA_CHECK (book (TH1D("h_phi_S", "h_phi_S", 100, -8.0, 8.0)));
+    ANA_CHECK (book (TH1D("h_phi_S1", "h_phi_S1", 100, -8.0, 8.0)));
+    ANA_CHECK (book (TH1D("h_phi_S2", "h_phi_S2", 100, -8.0, 8.0)));
+    //Dark Vector Boson (Zd)
+    ANA_CHECK (book (TH1D("h_mZd", "h_mZd", 100, 0, 200)));
+    // ANA_CHECK (book (TH1D("h_pT_Zd", "h_pT_Zd", 100, 0, 500)));
+    ANA_CHECK (book (TH1D("h_pT_Zd1", "h_pT_Zd1", 100, 0, 500)));
+    ANA_CHECK (book (TH1D("h_pT_Zd2", "h_pT_Zd2", 100, 0, 500)));
+    ANA_CHECK (book (TH1D("h_pT_Zd3", "h_pT_Zd3", 100, 0, 500)));
+    ANA_CHECK (book (TH1D("h_pT_Zd4", "h_pT_Zd4", 100, 0, 500)));
+    // ANA_CHECK (book (TH1D("h_eta_Zd","h_eta_Zd", 100, -3.5, 3.5)));
+    ANA_CHECK (book (TH1D("h_eta_Zd1","h_eta_Zd1", 100, -3.5, 3.5)));
+    ANA_CHECK (book (TH1D("h_eta_Zd2","h_eta_Zd2", 100, -3.5, 3.5)));
+    ANA_CHECK (book (TH1D("h_eta_Zd3","h_eta_Zd3", 100, -3.5, 3.5)));
+    ANA_CHECK (book (TH1D("h_eta_Zd4","h_eta_Zd4", 100, -3.5, 3.5)));
+    // ANA_CHECK (book (TH1D("h_phi_Zd", "h_phi_Zd", 100, -8.0, 8.0)));
+    ANA_CHECK (book (TH1D("h_phi_Zd1", "h_phi_Zd1", 100, -8.0, 8.0)));
+    ANA_CHECK (book (TH1D("h_phi_Zd2", "h_phi_Zd2", 100, -8.0, 8.0)));
+    ANA_CHECK (book (TH1D("h_phi_Zd3", "h_phi_Zd3", 100, -8.0, 8.0)));
+    ANA_CHECK (book (TH1D("h_phi_Zd4", "h_phi_Zd4", 100, -8.0, 8.0)));
+    //Visible leptons (l/e/u)
+    // ANA_CHECK (book (TH1D("h_m4l", "h_m4l", 100, 0, 200)));
+    // ANA_CHECK (book (TH1D("h_pT_4l", "h_m2l", 100, 0, 500)));
     //MET
     //ANA_CHECK (book (TH1F("h_missingET_other","h_missingET_other",100,0,1000)));
     //ANA_CHECK (book (TH1F("h_MET_boost","h_MET_boost",100,0,500)));
