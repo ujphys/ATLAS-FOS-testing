@@ -63,13 +63,13 @@ StatusCode MyxAODAnalysis :: initialize ()
 //    ANA_CHECK(event->writeTo(file));
 
     //Progenitor (H)
-    ANA_CHECK (book (TH1D("h_mH", "h_mH", 100, 0, 900)));
+    ANA_CHECK (book (TH1D("h_m_H", "h_m_H", 100, 0, 900)));
     ANA_CHECK (book (TH1D("h_pT_H", "h_pT_H", 100, 0, 500)));
     ANA_CHECK (book (TH1D("h_eta_H","h_eta_H", 100, -4.5, 4.5)));
     ANA_CHECK (book (TH1D("h_phi_H", "h_phi_H", 100, -4.5, 4.5)));
     //Additional Scalar (S)
-    ANA_CHECK (book (TH1D("h_mS1", "h_mS1", 100, 0, 200)));
-    ANA_CHECK (book (TH1D("h_mS2", "h_mS2", 100, 0, 200)));
+    ANA_CHECK (book (TH1D("h_m_S1", "h_m_S1", 100, 0, 200)));
+    ANA_CHECK (book (TH1D("h_m_S2", "h_m_S2", 100, 0, 200)));
     ANA_CHECK (book (TH1D("h_pT_S1", "h_pT_S1", 100, 0, 500)));
     ANA_CHECK (book (TH1D("h_pT_S2", "h_pT_S2", 100, 0, 500)));
     ANA_CHECK (book (TH1D("h_eta_S1","h_eta_S1", 100, -4.5, 4.5)));
@@ -77,10 +77,10 @@ StatusCode MyxAODAnalysis :: initialize ()
     ANA_CHECK (book (TH1D("h_phi_S1", "h_phi_S1", 100, -4.5, 4.5)));
     ANA_CHECK (book (TH1D("h_phi_S2", "h_phi_S2", 100, -4.5, 4.5)));
     //Dark Vector Boson (Zd)
-    ANA_CHECK (book (TH1D("h_mZd1", "h_mZd1", 100, 0, 200)));
-    ANA_CHECK (book (TH1D("h_mZd2", "h_mZd2", 100, 0, 200)));
-    ANA_CHECK (book (TH1D("h_mZd3", "h_mZd3", 100, 0, 200)));
-    ANA_CHECK (book (TH1D("h_mZd4", "h_mZd4", 100, 0, 200)));
+    ANA_CHECK (book (TH1D("h_m_Zd1", "h_m_Zd1", 100, 0, 200)));
+    ANA_CHECK (book (TH1D("h_m_Zd2", "h_m_Zd2", 100, 0, 200)));
+    ANA_CHECK (book (TH1D("h_m_Zd3", "h_m_Zd3", 100, 0, 200)));
+    ANA_CHECK (book (TH1D("h_m_Zd4", "h_m_Zd4", 100, 0, 200)));
     ANA_CHECK (book (TH1D("h_pT_Zd1", "h_pT_Zd1", 100, 0, 500)));
     ANA_CHECK (book (TH1D("h_pT_Zd2", "h_pT_Zd2", 100, 0, 500)));
     ANA_CHECK (book (TH1D("h_pT_Zd3", "h_pT_Zd3", 100, 0, 500)));
@@ -126,9 +126,9 @@ int n_Zd = 0;
 int n_childl1, n_childl2, n_childl3, n_childl4, n_childl5, n_childl6, n_childl7, n_childl8 = 0;
 
 // Initialize Kinematic variables //
-double mH, pT_H, eta_H, phi_H;
-double mS1, mS2, pT_S1, pT_S2, eta_S1, eta_S2, phi_S1, phi_S2;
-double mZd1, mZd2, mZd3, mZd4, pT_Zd1, pT_Zd2, pT_Zd3, pT_Zd4, eta_Zd1, eta_Zd2, eta_Zd3, eta_Zd4, phi_Zd1, phi_Zd2, phi_Zd3, phi_Zd4;
+double m_H, pT_H, eta_H, phi_H;
+double m_S1, m_S2, pT_S1, pT_S2, eta_S1, eta_S2, phi_S1, phi_S2;
+double m_Zd1, m_Zd2, m_Zd3, m_Zd4, pT_Zd1, pT_Zd2, pT_Zd3, pT_Zd4, eta_Zd1, eta_Zd2, eta_Zd3, eta_Zd4, phi_Zd1, phi_Zd2, phi_Zd3, phi_Zd4;
 double pT_e1, pT_e2, pT_e3, pT_e4, eta_e1, eta_e2, eta_e3, eta_e4, phi_e1, phi_e2, phi_e3, phi_e4;
 double pT_u1, pT_u2, pT_u3, pT_u4, eta_u1, eta_u2, eta_u3, eta_u4, phi_u1, phi_u2, phi_u3, phi_u4;
 
@@ -153,32 +153,17 @@ StatusCode MyxAODAnalysis :: execute ()
     const xAOD::MissingETContainer* truth_MET = nullptr;
     ANA_CHECK (evtStore()->retrieve (truth_MET, "MET_Truth"));
 
-    //const xAOD::MissingETContainer_v1  metContainer = nullptr;
-    //ANA_CHECK (evtStore()->retrieve (metContainer, "MET_Truth"))
-
-    //xAOD::MissingETContainer::const_iterator et_itr = truth_MET->begin();
-    //xAOD::MissingETContainer::const_iterator et_end = truth_MET->end();
-
-
     xAOD::TruthParticleContainer::const_iterator truth_itr = truthContainer->begin();
     xAOD::TruthParticleContainer::const_iterator truth_end = truthContainer->end();
 
 
     // Loop over TruthParticle
     for( ; truth_itr != truth_end ; ++truth_itr){
-        //ANA_MSG_INFO("__________________begin loop " << n_events << "____________________");
 
         /*------------------------ SECTION 1 - FIND PARTICLES, GET KINEMATICS ------------------------*/
         const xAOD::TruthParticle* truth = *truth_itr;
         //Initialize bitmask variables
-        bool l1_bool = false;
-        //bool l2_bool = false;
-        bool l3_bool = false;
-        //bool l4_bool = false;
-        bool l5_bool = false;
-        //bool l6_bool = false;
-        bool l7_bool = false;
-        //bool l8_bool = false;
+        bool l1_bool, l3_bool, l5_bool, l7_bool = false;
 
         // Find Higgs and then the rest
         if(truth->pdgId()==25){
@@ -195,19 +180,18 @@ StatusCode MyxAODAnalysis :: execute ()
                 }
                 //ANA_MSG_INFO("Higgs found");
                 n_Higgs++;
-                //Fill mass histogram for Higgs
-                // hist ("h_H_Mass")->Fill (truth->mass());
 
                 //------------Label the 1st gen children (dark Higgs)------------
                 const xAOD::TruthParticle* childS1 = decayVtx->outgoingParticle(0);
                 const xAOD::TruthParticle* childS2 = decayVtx->outgoingParticle(1);
                 //Check the Higgs has decayed to dark Higgs
                 if ( (childS1->absPdgId() == 35) && (childS2->absPdgId() == 35)){
-                    mH = truth -> m();
+                    //ANA_MSG_INFO("Dark Higgs found, child of the Higgs");
+                    //Once we know the Higgs decays to two S, we store its kinematics
+                    m_H = truth -> m();
                     pT_H = truth -> pt();
                     eta_H = truth -> eta();
                     phi_H = truth -> phi();
-                    //ANA_MSG_INFO("Dark Higgs found, child of the Higgs");
                     //Check childS1 decay vertex
                     if (childS1->hasDecayVtx() && childS2->hasDecayVtx()){ 
                         //ANA_MSG_INFO("Dark Higgs 1 decays");
@@ -223,11 +207,12 @@ StatusCode MyxAODAnalysis :: execute ()
                         const xAOD::TruthParticle* childZd4 = S2_decayVtx->outgoingParticle(1);
                         //Check S1 and S2 have decayed to dark photons
                         if ( (childZd1->absPdgId() == 32) && (childZd2->absPdgId() == 32) && (childZd3->absPdgId() == 32) && (childZd4->absPdgId() == 32)){
-                            mS1 = childS1 -> m(); mS2 = childS2 -> m();
+                            //ANA_MSG_INFO("Dark photon found, child of the dark Higgs");
+                            //Once we know each S decays to two Zd, we store their kinematics
+                            m_S1 = childS1 -> m(); m_S2 = childS2 -> m();
                             pT_S1 = childS1 -> pt(); pT_S2 = childS2 -> pt();
                             eta_S1 = childS1 -> eta(); eta_S2 = childS2 -> eta();
                             phi_S1 = childS1 -> phi(); phi_S2 = childS2 -> phi();
-                            //ANA_MSG_INFO("Dark photon found, child of the dark Higgs");
                             //Check both Zd children have decay verteces
                             if ( childZd1->hasDecayVtx() && childZd2->hasDecayVtx() && childZd3->hasDecayVtx() && childZd4->hasDecayVtx() ){
                                 const xAOD::TruthVertex* Zd1_decayVtx = childZd1->decayVtx();
@@ -237,7 +222,7 @@ StatusCode MyxAODAnalysis :: execute ()
                                 ANA_MSG_INFO("Four Zd found");
                                 n_Zd++;
 
-                                mZd1 = childZd1 -> m(); mZd2 = childZd2 -> m(); mZd3 = childZd3 -> m(); mZd4 = childZd4 -> m();
+                                m_Zd1 = childZd1 -> m(); m_Zd2 = childZd2 -> m(); m_Zd3 = childZd3 -> m(); m_Zd4 = childZd4 -> m();
                                 pT_Zd1 = childZd1 -> pt(); pT_Zd2 = childZd2 -> pt(); pT_Zd3 = childZd3 -> pt(); pT_Zd4 = childZd4 -> pt();
                                 eta_Zd1 = childZd1 -> eta(); eta_Zd2 = childZd2 -> eta(); eta_Zd3 = childZd3 -> eta(); eta_Zd4 = childZd4 -> eta();
                                 phi_Zd1 = childZd1 -> phi(); phi_Zd2 = childZd2 -> phi(); phi_Zd3 = childZd3 -> phi(); phi_Zd4 = childZd4 -> phi();
@@ -251,7 +236,7 @@ StatusCode MyxAODAnalysis :: execute ()
                                 const xAOD::TruthParticle* childl7 = Zd4_decayVtx->outgoingParticle(0);
                                 const xAOD::TruthParticle* childl8 = Zd4_decayVtx->outgoingParticle(1);
 
-                                //Since we know these leptons will always be OSSF pairs, we only check 1 of each pair
+                                //We know these leptons will always be OSSF pairs, we only need to check 1 of each pair
                                 //Set bitmask
                                 if (childl1->absPdgId()==11 || childl1->absPdgId()==13){l1_bool = true;}
                                 //if (childl2->absPdgId()==11 || childl2->absPdgId()==13){l2_bool = true;}
@@ -263,7 +248,7 @@ StatusCode MyxAODAnalysis :: execute ()
                                 //if (childl8->absPdgId()==11 || childl8->absPdgId()==13){l8_bool = true;}
 
                                 //Visible lepton kinematics
-                                //We also know that only leptons 1-4 will be e/u
+                                //We also know that only leptons 1-4 will be e/u, while 5-8 while be v
                                 if (childl1->absPdgId()==11){
                                     pT_e1 = childl1 -> pt(); pT_e2 = childl2 -> pt();
                                     eta_e1 = childl1 -> eta(); eta_e2 = childl2 -> eta();
@@ -293,9 +278,8 @@ StatusCode MyxAODAnalysis :: execute ()
         }//close Higgs check
         
         /*------------------------ SECTION 2 - BITMASK AND FILL HISTOGRAMS ------------------------*/
-        //for ( auto MissingET : *truth_MET ){hist ("h_missingET")->Fill (MissingET->sumet()/1000);} //Get simple MET
 
-        //Separating 44 and 22 cases
+        //Calculate bitmask value: allows us to separate 44 and 22 cases
         int bitmask = pow(2,3)*l1_bool + pow(2,2)*l3_bool + pow(2,1)*l5_bool + pow(2,0)*l7_bool;
 
         //ANA_MSG_INFO(l1_bool << l2_bool << l3_bool << l4_bool << l5_bool << l6_bool << l7_bool << l8_bool);
@@ -313,28 +297,28 @@ StatusCode MyxAODAnalysis :: execute ()
 
             //------------ Fill Kinematic Hists ------------//
             //H
-            hist ("h_mH")->Fill (mH/1000);
+            hist ("h_m_H")->Fill (m_H/1000);
             hist ("h_phi_H")->Fill (phi_H);
             hist ("h_eta_H")->Fill (eta_H);
             hist ("h_pT_H")->Fill (pT_H/1000);
             //S
-            hist ("h_mS1")->Fill (mS1/1000); hist ("h_mS2")->Fill (mS2/1000);
+            hist ("h_m_S1")->Fill (m_S1/1000); hist ("h_m_S2")->Fill (m_S2/1000);
             hist ("h_phi_S1")->Fill (phi_S1); hist ("h_phi_S2")->Fill (phi_S2);
             hist ("h_eta_S1")->Fill (eta_S1); hist ("h_eta_S2")->Fill (eta_S2);
             hist ("h_pT_S1")->Fill (pT_S1/1000); hist ("h_pT_S2")->Fill (pT_S2/1000);
             //Zd
-            hist ("h_mZd1")->Fill (mZd1/1000); hist ("h_mZd2")->Fill (mZd2/1000); hist ("h_mZd3")->Fill (mZd3/1000); hist ("h_mZd4")->Fill (mZd4/1000);
+            hist ("h_m_Zd1")->Fill (m_Zd1/1000); hist ("h_m_Zd2")->Fill (m_Zd2/1000); hist ("h_m_Zd3")->Fill (m_Zd3/1000); hist ("h_m_Zd4")->Fill (m_Zd4/1000);
             hist ("h_phi_Zd1")->Fill (phi_Zd1); hist ("h_phi_Zd2")->Fill (phi_Zd2); hist ("h_phi_Zd3")->Fill (phi_Zd3); hist ("h_phi_Zd4")->Fill (phi_Zd4);
             hist ("h_eta_Zd1")->Fill (eta_Zd1); hist ("h_eta_Zd2")->Fill (eta_Zd2); hist ("h_eta_Zd3")->Fill (eta_Zd3); hist ("h_eta_Zd4")->Fill (eta_Zd4);
             hist ("h_pT_Zd1")->Fill (pT_Zd1/1000); hist ("h_pT_Zd2")->Fill (pT_Zd2/1000); hist ("h_pT_Zd3")->Fill (pT_Zd3/1000); hist ("h_pT_Zd4")->Fill (pT_Zd4/1000);
             //Electrons
-            hist ("h_phi_e1")->Fill (phi_e1); hist ("h_phi_e2")->Fill (phi_e2); hist ("h_phi_e7")->Fill (phi_e7); hist ("h_phi_e4")->Fill (phi_e4);
-            hist ("h_eta_e1")->Fill (eta_e1); hist ("h_eta_e2")->Fill (eta_e2); hist ("h_eta_e7")->Fill (eta_e7); hist ("h_eta_e4")->Fill (eta_e4);
-            hist ("h_pT_e1")->Fill (pT_e1/1000); hist ("h_pT_e2")->Fill (pT_e2/1000); hist ("h_pT_e7")->Fill (pT_e7/1000); hist ("h_pT_e4")->Fill (pT_e4/1000);
+            hist ("h_phi_e1")->Fill (phi_e1); hist ("h_phi_e2")->Fill (phi_e2); hist ("h_phi_e3")->Fill (phi_e3); hist ("h_phi_e4")->Fill (phi_e4);
+            hist ("h_eta_e1")->Fill (eta_e1); hist ("h_eta_e2")->Fill (eta_e2); hist ("h_eta_e3")->Fill (eta_e3); hist ("h_eta_e4")->Fill (eta_e4);
+            hist ("h_pT_e1")->Fill (pT_e1/1000); hist ("h_pT_e2")->Fill (pT_e2/1000); hist ("h_pT_e3")->Fill (pT_e3/1000); hist ("h_pT_e4")->Fill (pT_e4/1000);
             //Muons
-            hist ("h_phi_u1")->Fill (phi_u1); hist ("h_phi_u2")->Fill (phi_u2); hist ("h_phi_u7")->Fill (phi_u7); hist ("h_phi_u4")->Fill (phi_u4);
-            hist ("h_eta_u1")->Fill (eta_u1); hist ("h_eta_u2")->Fill (eta_u2); hist ("h_eta_u7")->Fill (eta_u7); hist ("h_eta_u4")->Fill (eta_u4);
-            hist ("h_pT_u1")->Fill (pT_u1/1000); hist ("h_pT_u2")->Fill (pT_u2/1000); hist ("h_pT_u7")->Fill (pT_u7/1000); hist ("h_pT_u4")->Fill (pT_u4/1000);
+            hist ("h_phi_u1")->Fill (phi_u1); hist ("h_phi_u2")->Fill (phi_u2); hist ("h_phi_u3")->Fill (phi_u3); hist ("h_phi_u4")->Fill (phi_u4);
+            hist ("h_eta_u1")->Fill (eta_u1); hist ("h_eta_u2")->Fill (eta_u2); hist ("h_eta_u3")->Fill (eta_u3); hist ("h_eta_u4")->Fill (eta_u4);
+            hist ("h_pT_u1")->Fill (pT_u1/1000); hist ("h_pT_u2")->Fill (pT_u2/1000); hist ("h_pT_u3")->Fill (pT_u3/1000); hist ("h_pT_u4")->Fill (pT_u4/1000);
             //Non-interacting MET
             const xAOD::MissingET* truthMET_NonInt = nullptr;
             truthMET_NonInt = (*truth_MET)["NonInt"];
