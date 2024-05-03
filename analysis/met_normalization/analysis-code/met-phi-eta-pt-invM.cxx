@@ -361,6 +361,8 @@ StatusCode MyxAODAnalysis :: finalize ()
     std::cout << "Bitmask 12:\t" << l_multiplicity_12 << "\n";
     std::cout << "Total 44:\t" << l_multiplicity_44 << "\n";
 
+    // !!! Add check for PdgID of each of l1-8 !!!
+
     std::cout << "\n\n\n";
     return StatusCode::SUCCESS;
 }

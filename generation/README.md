@@ -1,8 +1,10 @@
 Code is currently generated using the Hidden Abelian Higgs Model in MadGraph+Pythia.
+This code is designed to be run on lxplus, which requires SSH and a CERN account.
 
 Condor instructions for AFS:
 !!!!!!!! NEED TO UPDATE CODE TO RUN DIRECTLY ON EOS !!!!!!!!
 There are ongoing permission issues with running HTCondor on EOS - in the meantime we use a workaround to produce the events code in AFS, move the file to EOS, then run reconstruction code in EOS.
+
 - First, copy the condor-gen directory to both EOS and AFS
 - Setup environments in each folder:
     - setupATLAS
