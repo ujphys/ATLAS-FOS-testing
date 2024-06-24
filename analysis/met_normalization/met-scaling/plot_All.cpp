@@ -1,5 +1,15 @@
 using namespace std;
 
+double updateMaxEntries(TH1D* hist, double current_max)
+{
+    /*Get the maximum entries from a histogram
+    Compare to the current max entries and return the larger value*/
+    int maxBin = hist->GetMaximumBin();
+    double maxEntries = hist->GetBinContent(maxBin);
+    if (maxEntries > current_max){ current_max = maxEntries; }
+    return current_max;
+}
+
 void plot_All()
 {
     /*
@@ -31,6 +41,9 @@ void plot_All()
         TCanvas *c_sum = new TCanvas("c_sum", "c_sum");
         TCanvas *c_scale = new TCanvas("c_scale", "c_scale");
 
+        float maxBinValue_sum = 0;
+        float maxBinValue_scale = 0;
+
         //___Loop over mH masses___
         for (int j=0; j<11; j++){
             string mH_GeV = std::to_string(mH_masses[j]);
@@ -43,10 +56,15 @@ void plot_All()
             // cout << h_scaleS << endl;
             TH1D *h_sum = (TH1D*)in_sum_M -> Get( (h_sumS).c_str() );
             TH1D *h_scale = (TH1D*)in_scale_M -> Get( (h_scaleS).c_str() );
+            maxBinValue_sum = updateMaxEntries(h_sum, maxBinValue_sum);
+            maxBinValue_scale = updateMaxEntries(h_scale, maxBinValue_scale);
+            cout << "Max bin values for (sum, scale) are (" << maxBinValue_sum << ", " << maxBinValue_scale << ")" << endl;
             //Draw hists
             c_sum -> cd();
+            h_sum -> SetMaximum( maxBinValue_sum );
             h_sum -> Draw("HIST SAME");
             c_scale -> cd();
+            h_scale -> SetMaximum( maxBinValue_scale );
             h_scale -> Draw("HIST SAME");
         }
         //Save canvasses
