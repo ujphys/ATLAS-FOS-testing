@@ -1,14 +1,6 @@
-using namespace std;
+#include "updateMaxEntries.cpp"
 
-double updateMaxEntries(TH1D* hist, double current_max)
-{
-    /*Get the maximum entries from a histogram
-    Compare to the current max entries and return the larger value*/
-    int maxBin = hist->GetMaximumBin();
-    double maxEntries = hist->GetBinContent(maxBin);
-    if (maxEntries > current_max){ current_max = maxEntries; }
-    return current_max;
-}
+using namespace std;
 
 void plot_All()
 {
@@ -40,7 +32,22 @@ void plot_All()
         string c_scaleS = "h_" + variables[i] + "_S_scale_mH";
         TCanvas *c_sum = new TCanvas("c_sum", "c_sum");
         TCanvas *c_scale = new TCanvas("c_scale", "c_scale");
+        //Initialize legends
+        TLegend *leg_c_sum = new TLegend(.60, .25, .8, .75);
+        leg_c_sum -> SetBorderSize(0);
+        leg_c_sum -> SetFillColor(0);
+        leg_c_sum -> SetFillStyle(9);
+        leg_c_sum -> SetTextFont(42);
+        leg_c_sum -> SetTextSize(0.04);
+        c_scale -> cd();
+        TLegend *leg_c_scale = new TLegend(.60, .25, .8, .75);
+        leg_c_scale -> SetBorderSize(0);
+        leg_c_scale -> SetFillColor(0);
+        leg_c_scale -> SetFillStyle(9);
+        leg_c_scale -> SetTextFont(42);
+        leg_c_scale -> SetTextSize(0.04);
 
+        //Track maximum bin values
         float maxBinValue_sum = 0;
         float maxBinValue_scale = 0;
 
@@ -56,17 +63,46 @@ void plot_All()
             // cout << h_scaleS << endl;
             TH1D *h_sum = (TH1D*)in_sum_M -> Get( (h_sumS).c_str() );
             TH1D *h_scale = (TH1D*)in_scale_M -> Get( (h_scaleS).c_str() );
+
             maxBinValue_sum = updateMaxEntries(h_sum, maxBinValue_sum);
             maxBinValue_scale = updateMaxEntries(h_scale, maxBinValue_scale);
+            double mBV_sum = h_sum ->GetBinContent( h_sum->GetMaximumBin() );
+            double mBV_scale = h_scale ->GetBinContent( h_scale->GetMaximumBin() );
             cout << "Max bin values for (sum, scale) are (" << maxBinValue_sum << ", " << maxBinValue_scale << ")" << endl;
+            // cout << "Sum: " << mBV_sum << endl << "Scale: " << mBV_scale << endl;
+
             //Draw hists
+            string leg_string = "mH" + mH_GeV;
             c_sum -> cd();
-            h_sum -> SetMaximum( maxBinValue_sum );
-            h_sum -> Draw("HIST SAME");
+            leg_c_sum -> AddEntry(h_sum, (leg_string).c_str(), "f");
+            h_sum -> SetFillColor(j+1);
+            // h_sum -> SetMaximum( maxBinValue_sum );
+            h_sum -> GetYaxis()->SetRangeUser(20, maxBinValue_sum * 10);
+            // h_sum -> Draw("HIST SAME");
             c_scale -> cd();
-            h_scale -> SetMaximum( maxBinValue_scale );
-            h_scale -> Draw("HIST SAME");
+            leg_c_scale -> AddEntry(h_sum, (leg_string).c_str(), "f");
+            // h_scale -> SetMaximum( maxBinValue_scale );
+            h_scale -> GetYaxis()->SetRangeUser(20, maxBinValue_scale * 10);
+            h_scale -> SetFillColor(j+1);
+            // h_scale -> Draw("HIST SAME");
+            if (j == 0){
+                c_sum -> cd();
+                h_sum -> Draw("HIST");
+                c_scale -> cd();
+                h_scale -> Draw("HIST");
+            }
+            else{
+                c_sum -> cd();
+                h_sum -> Draw("HIST SAME");
+                c_scale -> cd();
+                h_scale -> Draw("HIST SAME");
+            }
         }
+        //Draw legends
+        c_sum -> cd();
+        leg_c_sum -> Draw();
+        c_scale -> cd();
+        leg_c_scale -> Draw();
         //Save canvasses
         // cout << "Saving plots" << endl;
         string h_sum_plotS = "plots_all/" + c_sumS + ".pdf";
@@ -76,7 +112,7 @@ void plot_All()
     }
 
     //Close file
-    cout << "Closing file" << endl;
+    cout << "Closing files" << endl;
     in_sum_M -> Close();
     in_scale_M -> Close();
 }

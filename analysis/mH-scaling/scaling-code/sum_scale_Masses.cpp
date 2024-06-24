@@ -1,58 +1,8 @@
-// #include "test_func.h"  // Include the header file
+#include "sumHists.cpp"
+#include "scaleHists.cpp"
+#include "getHistParams.cpp"
+
 using namespace std;
-
-// void get_hist_params(TFile* f_in, string hist_in, string hist_out)
-// {
-//     //___Initialize h_out using dimensions of hist_in___
-//     // cout << "Initializing h_summed" << endl;
-//     TH1D *h_in = (TH1D*)f_in -> Get( (hist_in).c_str() );
-//     TH1D *h_out = new TH1D( (hist_out).c_str(), (hist_out).c_str(), h_in->GetNbinsX(),            //Bins
-//                                                                     h_in->GetXaxis()->GetXmin(),  //x_min
-//                                                                     h_in->GetXaxis()->GetXmax()); //x_max
-// }
-
-void sum_hists(TFile* f_in, TFile* f_out, string hist_in, string hist_out, int n)
-{
-    //___Initialize h_summed using dimensions of hist_in___
-    // cout << "Initializing h_summed" << endl;
-    string hist_in1 = hist_in + std::to_string(n);
-    TH1D *h1 = (TH1D*)f_in -> Get( (hist_in1).c_str() );
-    TH1D *h_summed = new TH1D("h_summed", "h_summed",   h1->GetNbinsX(),            //Bins
-                                                        h1->GetXaxis()->GetXmin(),  //x_min
-                                                        h1->GetXaxis()->GetXmax()); //x_max
-    //___Get histograms from file - loop through n histograms___
-    // cout << "Looping through " << n << " histograms" << endl;
-    for(int i=1; i<n+1; i++){
-        string hist_in2 = hist_in + std::to_string(i);
-        cout << "Getting: " << hist_in2 << endl;
-        TH1D *h_copy = (TH1D*)f_in -> Get( (hist_in2).c_str() );
-        //Add to h_summed
-        h_summed -> Add(h_copy);
-    }
-    //___Rename hist according to variable___
-    // cout << "Renaming h_summed" << endl;
-    h_summed->SetTitle( (hist_out).c_str() );
-    h_summed->SetName( (hist_out).c_str() );
-    //___Save h_summed___
-    // cout << "Saving h_summed" << endl;
-    f_out -> cd();
-    h_summed -> Write();
-}
-
-void scale_hist(TFile* f_in, TFile* f_out, string hist_in, string hist_out, double norm_factor)
-{
-    //___Initialize h_scaled as imported histogram, then scale it___
-    TH1D *h_scaled = (TH1D*)f_in -> Get( (hist_in).c_str() );
-    h_scaled -> Scale(norm_factor);
-    //___Rename hist according to variable___
-    // cout << "Renaming h_scaled" << endl;
-    h_scaled->SetTitle( (hist_out).c_str() );
-    h_scaled->SetName( (hist_out).c_str() );
-    //___Save h_scaled___
-    // cout << "Saving h_scaled" << endl;
-    f_out -> cd();
-    h_scaled -> Write();
-}
 
 int sum_scale_Masses()
 {
