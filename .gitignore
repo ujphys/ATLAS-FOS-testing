@@ -5,3 +5,6 @@
 *.swp
 
 .DS_store
+
+#Histogram plots
+h_*.pdf
