@@ -57,9 +57,11 @@ Analysis code has 3 sections
 - - stackHists - loops through iterable, adding histograms to THStack, then draws and saves the THStack plot
 - - sumHists - loops through iterable, adding histograms together, then writes the combined histogram to a .root file
 - - updateMaxEntries - returns the max of (max bin entries for a given hist : given float)
-- main-analysis-code/
+- basic-analysis/
 - - 
-- various-analyses/ - codes for specific analyses
+- advanced-analyses/ - codes for specific analyses
+- - For example scaling based on a variable or looking at variables when boosted into a new reference frame
+- - These should each have their own README
 - - mH-scaling/ - Investigates H>2S>4Zd>4l+MET decays over multiple mH masses, scaling all histograms acc. to an mH-specific normalization factor
 - - - crystal-ball-fits/ - Generates normalization factors by fitting a double-sided crystal ball function to non-resonant di-Higgs data
 - - - event-analysis/ - extracts kinematics from MC data
