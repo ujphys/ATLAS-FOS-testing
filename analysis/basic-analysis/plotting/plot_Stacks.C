@@ -1,25 +1,26 @@
 #include "../../includes/stackHists.cpp"
+#include "../../includes/setVariables.cpp"
 
 using namespace std;
 
-vector<string> set_variables(string particle, vector<string>& input_list){
-   //Function to set the variable list based on what particle you are given
-   std::vector<std::string> v_list = input_list;
-   if (particle == "missingET_NonInt" || particle == "missingET"){
-      //For MET, no variables (i.e. the list only has one element - an empty string)
-      v_list.assign(v_list.begin(), v_list.begin()+1);
-      }
-   else if (particle == "u" || particle == "e"){
-      //For electrons and muons, do not use mass
-      v_list.assign(v_list.begin()+1, v_list.end()-1);
-   }
-   else {
-      // For all other particles
-      v_list.assign(v_list.begin()+1, v_list.end());
-   }
+// vector<string> set_variables(string particle, vector<string>& input_list){
+//    //Function to set the variable list based on what particle you are given
+//    std::vector<std::string> v_list = input_list;
+//    if (particle == "missingET_NonInt" || particle == "missingET"){
+//       //For MET, no variables (i.e. the list only has one element - an empty string)
+//       v_list.assign(v_list.begin(), v_list.begin()+1);
+//       }
+//    else if (particle == "u" || particle == "e"){
+//       //For electrons and muons, do not use mass
+//       v_list.assign(v_list.begin()+1, v_list.end()-1);
+//    }
+//    else {
+//       // For all other particles
+//       v_list.assign(v_list.begin()+1, v_list.end());
+//    }
 
-   return v_list;
-}
+//    return v_list;
+// }
 
 void plot_Stacks()
 {
@@ -54,7 +55,7 @@ void plot_Stacks()
    for (int p = 0; p < sizeof(particles)/sizeof(particles[0]); p++){
       cout << "~~~~~~~ Getting particle: " << particles[p] << " ~~~~~~~" << endl;
       //Set variables based on particle
-      std::vector<std::string> relevant_variables = set_variables(particles[p], variables);
+      std::vector<std::string> relevant_variables = setVariables(particles[p], variables);
 
       //Loop over variables
       for (int v = 0; v < relevant_variables.size(); v++){

@@ -1,25 +1,26 @@
 #include "../../includes/sumHists.cpp"
+#include "../../includes/setVariables.cpp"
 
 using namespace std;
 
-vector<string> set_variables(string particle, vector<string>& input_list){
-   //Function to set the variable list based on what particle you are given
-   std::vector<std::string> v_list = input_list;
-   if (particle == "missingET_NonInt" || particle == "missingET"){
-      //For MET, no variables (i.e. the list only has one element - an empty string)
-      v_list.assign(v_list.begin(), v_list.begin()+1);
-      }
-   else if (particle == "u" || particle == "e"){
-      //For electrons and muons, do not use mass
-      v_list.assign(v_list.begin()+1, v_list.end()-1);
-   }
-   else {
-      // For all other particles
-      v_list.assign(v_list.begin()+1, v_list.end());
-   }
+// vector<string> set_variables(string particle, vector<string>& input_list){
+//    //Function to set the variable list based on what particle you are given
+//    std::vector<std::string> v_list = input_list;
+//    if (particle == "missingET_NonInt" || particle == "missingET"){
+//       //For MET, no variables (i.e. the list only has one element - an empty string)
+//       v_list.assign(v_list.begin(), v_list.begin()+1);
+//       }
+//    else if (particle == "u" || particle == "e"){
+//       //For electrons and muons, do not use mass
+//       v_list.assign(v_list.begin()+1, v_list.end()-1);
+//    }
+//    else {
+//       // For all other particles
+//       v_list.assign(v_list.begin()+1, v_list.end());
+//    }
 
-   return v_list;
-}
+//    return v_list;
+// }
 
 void sum_Nparticles()
 {
@@ -30,7 +31,7 @@ void sum_Nparticles()
     Loop over different files
         Initialize file string and TFile
         Loop over different particles (MET is defined as its own particle)
-            Use set_variables() function to define what variables are relevant to that particle
+            Use setVariables() to define what variables are relevant to that particle
             Loop over different variables
                 Initialize a sum histogram
                 Loop over the number of that kind of particle
@@ -64,7 +65,7 @@ void sum_Nparticles()
       for (int p = 0; p < sizeof(particles)/sizeof(particles[0]); p++){
          cout << "~~~~~~~~ Getting particle: " << particles[p] << " ~~~~~~~~" << endl;
          //Set variables based on particle
-         std::vector<std::string> relevant_variables = set_variables(particles[p], variables);
+         std::vector<std::string> relevant_variables = setVariables(particles[p], variables);
 
          //Loop over variables
          for (int v = 0; v < relevant_variables.size(); v++){
@@ -83,7 +84,9 @@ void sum_Nparticles()
             for (int n = 0; n < num_particles[p]; n++){
                //Generate histogram name - if there's more than one particle, what number particle it is is also needed
                string hist_nameS2 = hist_nameS;
-               if (num_particles[p] > 1){    hist_nameS2 = hist_nameS + to_string(n+1);   }
+               if (num_particles[p] > 1){
+                  hist_nameS2 = hist_nameS + to_string(n+1);
+               }
                cout << hist_nameS2 << endl;
                //Copy histogram and add to h_sum
                TH1D *h_copy = (TH1D*)inFile_mH -> Get( (hist_nameS2).c_str() );
