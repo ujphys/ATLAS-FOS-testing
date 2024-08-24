@@ -3,29 +3,11 @@
 
 using namespace std;
 
-// vector<string> set_variables(string particle, vector<string>& input_list){
-//    //Function to set the variable list based on what particle you are given
-//    std::vector<std::string> v_list = input_list;
-//    if (particle == "missingET_NonInt" || particle == "missingET"){
-//       //For MET, no variables (i.e. the list only has one element - an empty string)
-//       v_list.assign(v_list.begin(), v_list.begin()+1);
-//       }
-//    else if (particle == "u" || particle == "e"){
-//       //For electrons and muons, do not use mass
-//       v_list.assign(v_list.begin()+1, v_list.end()-1);
-//    }
-//    else {
-//       // For all other particles
-//       v_list.assign(v_list.begin()+1, v_list.end());
-//    }
-
-//    return v_list;
-// }
-
 void sum_Nparticles()
 {
    /*
-   Function to take analysis output files and sum the base variables for each type of particle
+   Function to take event-by-event histograms and sum the base variables for each type of particle, saving the output to a new .root file
+
    Initialize file paths, lists of particles, variables, masses, etc. to sum over
    Initialize output file
    Loop over different files
@@ -43,23 +25,24 @@ void sum_Nparticles()
    Close output file
    */
 
+   // SET FILE PATHS HERE
+   string f_path = "/Users/matt/Documents/work/0-CERN-UJ-HEP/particle/hZdZd/code_ZdZd/git_Zd/"; //Working dir
+   string inFile_S = f_path + "kinematics-2024-05-10_COPY1/hist-reco_mH"; //In kinematics file
+   string outFile_S = f_path + "tests_2024-07-03/test_sum_Nparticles1.root"; //In kinematics file
+   //Create output file
+   TFile *outFile = new TFile( (outFile_S).c_str(), "recreate" );
    //Initialize some variables 
    string mH_masses[11] = {"300", "350", "400", "450", "500", "550", "600", "650", "700", "750", "800"}; //Different H particle masses
    string particles[] = {"H", "S", "Zd", "e", "u", "missingET", "missingET_NonInt"}; //Different kinds of particles
    int num_particles[] = {1,  2,    4,    4,    4,    1,          1}; //Corresponds to the how many of each particle there are
    std::vector<std::string> variables = {"", "phi_", "eta_", "pT_", "m"};
    string hist_data = "_all"; //Extra string in hist name: scaled, unscaled, all, etc.
-   string f_path = "/Users/matt/Documents/work/0-CERN-UJ-HEP/particle/hZdZd/Zd-code/git_Zd/"; //Working dir
-   string inFile_S = f_path + "kinematics-2024-05-10_COPY1/hist-reco_mH"; //In kinematics file
-   string outFile_S = f_path + "tests_2024-07-03/summed-Particles_all-mH.root"; //In kinematics file
-   //Create output file
-   TFile *outFile = new TFile( (outFile_S).c_str(), "recreate" );
 
    //Loop over different files (defined by different mH)
    for (const auto& m: mH_masses){
-      string inFile_mHS = inFile_S + m + ".root";
-      cout << "Getting file: " << inFile_mHS << endl;
-      TFile *inFile_mH = new TFile( (inFile_mHS).c_str(), "read" );
+      string inFile_mH_S = inFile_S + m + ".root";
+      cout << "Getting file: " << inFile_mH_S << endl;
+      TFile *inFile_mH = new TFile( (inFile_mH_S).c_str(), "read" );
    
       //Loop over particles
       for (int p = 0; p < sizeof(particles)/sizeof(particles[0]); p++){
@@ -84,7 +67,9 @@ void sum_Nparticles()
             for (int n = 0; n < num_particles[p]; n++){
                //Generate histogram name - if there's more than one particle, what number particle it is is also needed
                string hist_nameS2 = hist_nameS;
-               if (num_particles[p] > 1){    hist_nameS2 = hist_nameS + to_string(n+1);   }
+               if (num_particles[p] > 1){
+                  hist_nameS2 = hist_nameS + to_string(n+1);
+               }
                cout << hist_nameS2 << endl;
                //Copy histogram and add to h_sum
                TH1D *h_copy = (TH1D*)inFile_mH -> Get( (hist_nameS2).c_str() );
@@ -98,7 +83,7 @@ void sum_Nparticles()
 
       } //Close loop over particles
 
-      cout << "Closing: " << inFile_mHS << endl;
+      cout << "Closing: " << inFile_mH_S << endl;
       inFile_mH -> Close();
 
    } //Close loop over new files

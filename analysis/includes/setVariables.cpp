@@ -9,22 +9,22 @@ TODO
 Make more intuitive - maybe assign a list of variables for each particle, rather than having an input list and adjusting it
 */
 
-vector<string> set_variables(string particle, vector<string>& input_list){
+vector<string> setVariables(string particle, vector<string>& input_list){
    // Copy input list to intermediate list
-   std::vector<std::string> v_list = input_list;
+   std::vector<std::string> output_list = input_list;
 
     if (particle == "missingET_NonInt" || particle == "missingET"){
       // For MET, no variables (i.e. the list only has one element - an empty string)
-      v_list.assign(v_list.begin(), v_list.begin()+1);
+      output_list.assign(output_list.begin(), output_list.begin()+1);
     }
     else if (particle == "u" || particle == "e"){
       // For electrons and muons, do not use mass
-      v_list.assign(v_list.begin()+1, v_list.end()-1);
+      output_list.assign(output_list.begin()+1, output_list.end()-1);
     }
     else {
       // For all other particles
-      v_list.assign(v_list.begin()+1, v_list.end());
+      output_list.assign(output_list.begin()+1, output_list.end());
     }
 
-   return v_list;
+   return output_list;
 }
