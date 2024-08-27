@@ -34,6 +34,7 @@
 #include "TLorentzVector.h"
 #include "TVector3.h"
 
+using namespace std;
 
 MyxAODAnalysis :: MyxAODAnalysis (const std::string& name,
                                   ISvcLocator *pSvcLocator)
@@ -93,7 +94,7 @@ StatusCode MyxAODAnalysis :: initialize ()
     ANA_CHECK (book (TH1D("h_phi_Zd2", "h_phi_Zd2", 100, -4.5, 4.5)));
     ANA_CHECK (book (TH1D("h_phi_Zd3", "h_phi_Zd3", 100, -4.5, 4.5)));
     ANA_CHECK (book (TH1D("h_phi_Zd4", "h_phi_Zd4", 100, -4.5, 4.5)));
-    //Visible leptons (l/e/u)
+    //Visible leptons (e; u;)
     ANA_CHECK (book (TH1D("h_pT_e1", "h_pT_e1", 100, 0, 500))); ANA_CHECK (book (TH1D("h_pT_u1", "h_pT_u1", 100, 0, 500)));
     ANA_CHECK (book (TH1D("h_pT_e2", "h_pT_e2", 100, 0, 500))); ANA_CHECK (book (TH1D("h_pT_u2", "h_pT_u2", 100, 0, 500)));
     ANA_CHECK (book (TH1D("h_pT_e3", "h_pT_e3", 100, 0, 500))); ANA_CHECK (book (TH1D("h_pT_u3", "h_pT_u3", 100, 0, 500)));
@@ -106,14 +107,27 @@ StatusCode MyxAODAnalysis :: initialize ()
     ANA_CHECK (book (TH1D("h_phi_e2","h_phi_e2", 100, -4.5, 4.5))); ANA_CHECK (book (TH1D("h_phi_u2","h_phi_u2", 100, -4.5, 4.5)));
     ANA_CHECK (book (TH1D("h_phi_e3","h_phi_e3", 100, -4.5, 4.5))); ANA_CHECK (book (TH1D("h_phi_u3","h_phi_u3", 100, -4.5, 4.5)));
     ANA_CHECK (book (TH1D("h_phi_e4","h_phi_e4", 100, -4.5, 4.5))); ANA_CHECK (book (TH1D("h_phi_u4","h_phi_u4", 100, -4.5, 4.5)));
+    //Multileptons
+    ANA_CHECK (book (TH1D("h_pT_lead", "h_pT_lead", 100, 0, 500)));
+    ANA_CHECK (book (TH1D("h_pT_sublead", "h_pT_sublead", 100, 0, 500)));
     //MET
     ANA_CHECK (book (TH1F("h_missingET","h_missingET",100,0,1000)));
     ANA_CHECK (book (TH1D("h_missingET_NonInt","h_missingET_NonInt",100,0,1000)));
 
+    //Testing
+    // ANA_CHECK (book (TH1D("h_M_S1", "h_M_S1", 100, 0, 200)));
+    // ANA_CHECK (book (TH1D("h_M_Zd1", "h_M_Zd1", 100, 0, 200)));
+    // ANA_CHECK (book (TH1D("h_invMass_l1l2", "h_invMass_l1l2", 100, 0, 200)));
+    // ANA_CHECK (book (TH1D("h_invMass_l3l4", "h_invMass_l3l4", 100, 0, 200)));
+    // ANA_CHECK (book (TH1D("h_invMass_4l", "h_invMass_4l", 100, 0, 200)));
+    // ANA_CHECK (book (TH1D("h_vectorInvMass_l1l2", "h_vectorInvMass_l1l2", 100, 0, 200)));
+    // ANA_CHECK (book (TH1D("h_vectorInvMass_l3l4", "h_vectorInvMass_l3l4", 100, 0, 200)));
+    // ANA_CHECK (book (TH1D("h_vectorInvMass_4l", "h_vectorInvMass_4l", 100, 0, 200)));
+
     return StatusCode::SUCCESS;
 }
 
-// Initialize counting variables
+/* counting variables */
 float l_multiplicity = 0;
 float l_multiplicity_44 = 0;
 float l_multiplicity_3 = 0;
@@ -125,12 +139,46 @@ int n_S = 0;
 int n_Zd = 0;
 int n_childl1, n_childl2, n_childl3, n_childl4, n_childl5, n_childl6, n_childl7, n_childl8 = 0;
 
-// Initialize Kinematic variables //
-double m_H, pT_H, eta_H, phi_H;
-double m_S1, m_S2, pT_S1, pT_S2, eta_S1, eta_S2, phi_S1, phi_S2;
-double m_Zd1, m_Zd2, m_Zd3, m_Zd4, pT_Zd1, pT_Zd2, pT_Zd3, pT_Zd4, eta_Zd1, eta_Zd2, eta_Zd3, eta_Zd4, phi_Zd1, phi_Zd2, phi_Zd3, phi_Zd4;
-double pT_e1, pT_e2, pT_e3, pT_e4, eta_e1, eta_e2, eta_e3, eta_e4, phi_e1, phi_e2, phi_e3, phi_e4;
-double pT_u1, pT_u2, pT_u3, pT_u4, eta_u1, eta_u2, eta_u3, eta_u4, phi_u1, phi_u2, phi_u3, phi_u4;
+/* Kinematic variables */
+double m_H, pT_H, eta_H, phi_H; //H
+double m_S1, m_S2, pT_S1, pT_S2, eta_S1, eta_S2, phi_S1, phi_S2; //S
+double m_Zd1, m_Zd2, m_Zd3, m_Zd4, pT_Zd1, pT_Zd2, pT_Zd3, pT_Zd4, eta_Zd1, eta_Zd2, eta_Zd3, eta_Zd4, phi_Zd1, phi_Zd2, phi_Zd3, phi_Zd4; //Zd
+double pT_e1, pT_e2, pT_e3, pT_e4, eta_e1, eta_e2, eta_e3, eta_e4, phi_e1, phi_e2, phi_e3, phi_e4; //electron pT, eta, phi
+double pT_u1, pT_u2, pT_u3, pT_u4, eta_u1, eta_u2, eta_u3, eta_u4, phi_u1, phi_u2, phi_u3, phi_u4; //muon pT, eta, phi
+double e_e1, e_e2, e_e3, e_e4, px_e1, px_e2, px_e3, px_e4, py_e1, py_e2, py_e3, py_e4, pz_e1, pz_e2, pz_e3, pz_e4; //electron e, px, py, pz
+double e_u1, e_u2, e_u3, e_u4, px_u1, px_u2, px_u3, px_u4, py_u1, py_u2, py_u3, py_u4, pz_u1, pz_u2, pz_u3, pz_u4; //muon e, px, py, pz
+double pT_l1l2, pT_l3l4, pT_2l_L, pT_2l_S, pT_4l; //Multi-lepton pT
+double invM_l1l2, invM_l3l4, invM_4l; //Multi-lepton invariant masses
+// TLorentzVector vec_e1, vec_e2, vec_e3, vec_e4, vec_u1, vec_u2, vec_u3, vec_u4, vec_l1l2, vec_l3l4, vec_4l; //lepton Lorentz vectors
+ROOT::Math::PtEtaPhiEVector vec_e1, vec_e2, vec_e3, vec_e4, vec_u1, vec_u2, vec_u3, vec_u4, vec_l1l2, vec_l3l4, vec_4l; //lepton PtEtaPhiE vectors
+
+/* Useful functions */
+// Order leading vs. subleading pT in a std::vector
+vector<double> get_lead_sublead_pT(double pT_1, double pT_2){
+    vector<double> pT_list;
+    if (pT_1 > pT_2) {pT_list = {pT_1, pT_2};}
+    else {pT_list = {pT_2, pT_1};}
+    return pT_list;
+}
+// Calculate angular distance, delta-R, between two objects
+double delta_R(double eta1, double eta2, double phi1, double phi2){
+    return sqrt( pow((eta1 - eta2), 2) + pow((phi1 - phi2), 2));
+}
+// Create TLorentzVector from a particle
+TLorentzVector get_Lorentz(const xAOD::TruthParticle* particle){
+    TLorentzVector particle_Lorentz;
+    particle_Lorentz.SetPxPyPzE(particle->px(), particle->py(), particle->pz(), particle->m());
+    return particle_Lorentz;
+}
+// Create PtEtaPhiEVector from a particle pointer
+ROOT::Math::PtEtaPhiEVector get_PtPtEtaPhiEVector(const xAOD::TruthParticle* particle){
+    return ROOT::Math::PtEtaPhiEVector particle_vector (particle->pT(), particle->eta(), particle->phi(), particle->e());
+}
+// Create PtEtaPhiEVector from doubles
+ROOT::Math::PtEtaPhiEVector get_PtPtEtaPhiEVector(double pT, double eta, double phi, double e){
+    ROOT::Math::PtEtaPhiEVector particle_vector(pT, eta, phi, e);
+    return particle_vector;
+}
 
 StatusCode MyxAODAnalysis :: execute ()
 {
@@ -171,7 +219,7 @@ StatusCode MyxAODAnalysis :: execute ()
             if (truth->hasDecayVtx()){
                 const xAOD::TruthVertex* decayVtx = truth->decayVtx();
                 if ( !(decayVtx -> nOutgoingParticles() == 2)){
-                    ANA_MSG_INFO("Higgs decaying in " << decayVtx->nOutgoingParticles() << " particles");
+                    // ANA_MSG_INFO("Higgs decaying in " << decayVtx->nOutgoingParticles() << " particles");
 
                     const xAOD::TruthParticle* H_child = decayVtx->outgoingParticle(0);
                     std::cout << "H_child pdgID: " << H_child->pdgId() << " ___ ";
@@ -197,7 +245,7 @@ StatusCode MyxAODAnalysis :: execute ()
                         //ANA_MSG_INFO("Dark Higgs 1 decays");
                         const xAOD::TruthVertex* S1_decayVtx = childS1->decayVtx();
                         const xAOD::TruthVertex* S2_decayVtx = childS2->decayVtx();
-                        ANA_MSG_INFO("Two S found");
+                        // ANA_MSG_INFO("Two S found");
                         n_S++;
 
                         //------------Label the 2nd gen children (Zd 1-4)------------
@@ -219,7 +267,7 @@ StatusCode MyxAODAnalysis :: execute ()
                                 const xAOD::TruthVertex* Zd2_decayVtx = childZd2->decayVtx();
                                 const xAOD::TruthVertex* Zd3_decayVtx = childZd3->decayVtx();
                                 const xAOD::TruthVertex* Zd4_decayVtx = childZd4->decayVtx();
-                                ANA_MSG_INFO("Four Zd found");
+                                // ANA_MSG_INFO("Four Zd found");
                                 n_Zd++;
 
                                 m_Zd1 = childZd1 -> m(); m_Zd2 = childZd2 -> m(); m_Zd3 = childZd3 -> m(); m_Zd4 = childZd4 -> m();
@@ -235,9 +283,25 @@ StatusCode MyxAODAnalysis :: execute ()
                                 const xAOD::TruthParticle* childl6 = Zd3_decayVtx->outgoingParticle(1);
                                 const xAOD::TruthParticle* childl7 = Zd4_decayVtx->outgoingParticle(0);
                                 const xAOD::TruthParticle* childl8 = Zd4_decayVtx->outgoingParticle(1);
+                                // Print pdgIDs
+                                cout << "[" << childl1->absPdgId() << " - " << childl2->absPdgId() << "]  ";
+                                cout << "[" << childl3->absPdgId() << " - " << childl4->absPdgId() << "]  ";
+                                cout << "[" << childl5->absPdgId() << " - " << childl6->absPdgId() << "]  ";
+                                cout << "[" << childl7->absPdgId() << " - " << childl8->absPdgId() << "]" << endl;;
 
-                                //We know these leptons will always be OSSF pairs, we only need to check 1 of each pair
-                                //Set bitmask
+                                /* Visible lepton kinematics
+                                Assumme the following:
+                                1. Leptons are always OSSF pairs
+                                2. Leptons 1-4 are always e/u, 5-8 are always v
+                                For each lepton 1-4 we store:
+                                1. pT
+                                2. eta
+                                3. phi
+                                4. energy
+                                5. PtEtaPhiEVector
+                                */
+
+                                // Set bitmask
                                 if (childl1->absPdgId()==11 || childl1->absPdgId()==13){l1_bool = true;}
                                 //if (childl2->absPdgId()==11 || childl2->absPdgId()==13){l2_bool = true;}
                                 if (childl3->absPdgId()==11 || childl3->absPdgId()==13){l3_bool = true;}
@@ -247,35 +311,66 @@ StatusCode MyxAODAnalysis :: execute ()
                                 if (childl7->absPdgId()==11 || childl7->absPdgId()==13){l7_bool = true;}
                                 //if (childl8->absPdgId()==11 || childl8->absPdgId()==13){l8_bool = true;}
 
-                                //Visible lepton kinematics
-                                //We also know that only leptons 1-4 will be e/u, while 5-8 while be v
+                                //Pair-12
                                 if (childl1->absPdgId()==11){
                                     pT_e1 = childl1 -> pt(); pT_e2 = childl2 -> pt();
                                     eta_e1 = childl1 -> eta(); eta_e2 = childl2 -> eta();
                                     phi_e1 = childl1 -> phi(); phi_e2 = childl2 -> phi();
+                                    e_e1 = childl1 -> e(); e_e2 = childl2 -> e();
+                                    vec_e1 = get_PtPtEtaPhiEVector(pT_e1, eta_e1, phi_e1, e_e1);
+                                    vec_e2 = get_PtPtEtaPhiEVector(pT_e2, eta_e2, phi_e2, e_e2);
+                                    vec_l1l2 = vec_e1 + vec_e2;
+                                    pT_l1l2 = pT_e1 + pT_e2;
+                                    
+                                    
                                 }
+                                elif (childl1->absPdgId()==13){
+                                    pT_u1 = childl1 -> pt(); pT_u2 = childl2 -> pt();
+                                    eta_u1 = childl1 -> eta(); eta_u2 = childl2 -> eta();
+                                    phi_u1 = childl1 -> phi(); phi_u2 = childl2 -> phi();
+                                    e_u1 = childl1 -> e(); e_u2 = childl2 -> e();
+                                    vec_u1 = get_PtPtEtaPhiEVector(pT_u1, eta_u1, phi_u1, e_u1);
+                                    vec_u2 = get_PtPtEtaPhiEVector(pT_u2, eta_u2, phi_u2, e_u2);
+                                    vec_l1l2 = vec_u1 + vec_u2;
+                                    pT_l1l2 = pT_u1 + pT_u2;
+                                    
+                                }
+                                //Pair-34
                                 if (childl3->absPdgId()==11){
                                     pT_e3 = childl3 -> pt(); pT_e4 = childl4 -> pt();
                                     eta_e3 = childl3 -> eta(); eta_e4 = childl4 -> eta();
                                     phi_e3 = childl3 -> phi(); phi_e4 = childl4 -> phi();
+                                    e_e3 = childl3 -> e(); e_e4 = childl4 -> e();
+                                    vec_e3 = get_PtPtEtaPhiEVector(pT_e3, eta_e3, phi_e3, e_e3);
+                                    vec_e4 = get_PtPtEtaPhiEVector(pT_e4, eta_e4, phi_e4, e_e4);
+                                    vec_l3l4 = vec_e3 + vec_e4;
+                                    pT_l3l4 = pT_e3 + pT_e4;
                                 }
-                                if (childl1->absPdgId()==13){
-                                    pT_u1 = childl1 -> pt(); pT_u2 = childl2 -> pt();
-                                    eta_u1 = childl1 -> eta(); eta_u2 = childl2 -> eta();
-                                    phi_u1 = childl1 -> phi(); phi_u2 = childl2 -> phi();
-                                }
-                                if (childl3->absPdgId()==13){
+                                elif (childl3->absPdgId()==13){
                                     pT_u3 = childl3 -> pt(); pT_u4 = childl4 -> pt();
                                     eta_u3 = childl3 -> eta(); eta_u4 = childl4 -> eta();
                                     phi_u3 = childl3 -> phi(); phi_u4 = childl4 -> phi();
+                                    e_u3 = childl3 -> e(); e_u4 = childl4 -> e();
+                                    vec_u3 = get_PtPtEtaPhiEVector(pT_u3, eta_u3, phi_u3, e_u3);
+                                    vec_u4 = get_PtPtEtaPhiEVector(pT_u4, eta_u4, phi_u4, e_u4);
+                                    vec_l3l4 = vec_u3 + vec_u4;
+                                    pT_l3l4 = pT_u3 + pT_u4;
                                 }
+                                //Determine leading and subleading pair
+                                pT_2l_L = get_lead_sublead_pT(pT_l1l2, pT_l3l4)[0];
+                                pT_2l_S = get_lead_sublead_pT(pT_l1l2, pT_l3l4)[1];
+                                //4l invariant mass
+                                invM_l1l2 = vec_l1l2.M()
+                                invM_l3l4 = vec_l3l4.M()
+                                invM_4l = (vec_l1l2 + vec_l3l4).M()
+
                             }//close Zd decay check
-                        }//close Zd check
+                        }//close Zd identity check
                     }//close S decay check                 
                     
-                }//close S check
+                }//close S identity check
             }//close Higgs decay check
-        }//close Higgs check
+        }//close Higgs identity check
         
         /*------------------------ SECTION 2 - BITMASK AND FILL HISTOGRAMS ------------------------*/
 
@@ -319,14 +414,16 @@ StatusCode MyxAODAnalysis :: execute ()
             hist ("h_phi_u1")->Fill (phi_u1); hist ("h_phi_u2")->Fill (phi_u2); hist ("h_phi_u3")->Fill (phi_u3); hist ("h_phi_u4")->Fill (phi_u4);
             hist ("h_eta_u1")->Fill (eta_u1); hist ("h_eta_u2")->Fill (eta_u2); hist ("h_eta_u3")->Fill (eta_u3); hist ("h_eta_u4")->Fill (eta_u4);
             hist ("h_pT_u1")->Fill (pT_u1/1000); hist ("h_pT_u2")->Fill (pT_u2/1000); hist ("h_pT_u3")->Fill (pT_u3/1000); hist ("h_pT_u4")->Fill (pT_u4/1000);
-            //Non-interacting MET
+            //MET
             const xAOD::MissingET* truthMET_NonInt = nullptr;
             truthMET_NonInt = (*truth_MET)["NonInt"];
-            hist ("h_missingET_NonInt")->Fill (truthMET_NonInt->met()/1000);
-            for ( auto MissingET : *truth_MET ){ hist ("h_missingET")->Fill (MissingET->sumet()/1000); } //Basic MET
-        }// Close 44 bitmask
+            hist ("h_missingET_NonInt")->Fill (truthMET_NonInt->met()/1000); // Non-interacting MET
+            for (auto MissingET : *truth_MET ){
+                hist ("h_missingET")->Fill (MissingET->sumet()/1000); // Basic MET
+            }
+        }//Close 44 bitmask
 
-        //check 22 case
+        //Check 22 case
         if (bitmask == 5 || bitmask == 6 || bitmask == 9 || bitmask == 10 ){
             l_multiplicity ++;
             l_multiplicity_22 ++;
@@ -334,14 +431,6 @@ StatusCode MyxAODAnalysis :: execute ()
         }//Close 22 bitmask
         
     }//close for loop
-
-    //Scaling Histograms
-    // std::cout << "Method 1: fill then scale" << std::endl; //The scaled histogram doesn't seem to save so we are left with the original
-    // h_missingET_Yscaled1->Scale(norm_factor);
-    // std::cout << "Method 2: set to NonInt then scale" << std::endl;
-    // h_missingET_Yscaled2 = h_missingET_NonInt; //This histogram ends up empty
-    // h_missingET_Yscaled2->Scale(norm_factor);
-    // std::cout << "Scaling Done" << std::endl;
 
     return StatusCode::SUCCESS;
 }//close execute loop
