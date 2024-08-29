@@ -30,8 +30,10 @@ public:
 public:
     /*
     Histogram names should follow this format
-    h_ + variable + _ particle type + particle number
-    E.g. h_m_Zd2 for the mass histogram of the 2nd dark vector boson (Zd2)
+    h_ {variable}_{particle type}{particle number}_{optional descriptor}
+    Examples:
+    h_m_Zd2 --> mass histogram of the 2nd dark vector boson (Zd2)
+    h_pT_2l_leading --> transverse momentum for leading dilepton (2l)
     */
 
     //Mass hists //
@@ -100,22 +102,23 @@ public:
     // TH1D* h_e_u3 = new TH1D();
     // TH1D* h_e_u4 = new TH1D();
     //Multi lepton hists //
-    // TH1D* h_pT_ee12 = new TH1D();
-    // TH1D* h_pT_ee34 = new TH1D();
-    // TH1D* h_pT_uu12 = new TH1D();
-    // TH1D* h_pT_uu34 = new TH1D();
-    //Leading and subleading lepton hists //
     TH1D* h_pT_2l_leading = new TH1D();
     TH1D* h_pT_2l_subleading = new TH1D();
+    TH1D* h_pT_4l = new TH1D();
+    TH1D* h_invMass_l1l2 = new TH1D();
+    TH1D* h_invMass_l3l4 = new TH1D();
+    TH1D* h_invMass_4l = new TH1D();
     //MET hists //
     TH1* h_missingET;
     TH1* h_missingET_NonInt;
 
-    //Test these
-    TH1D* h_invMass_l1l2 = new TH1D();
-    TH1D* h_invMass_l3l4 = new TH1D();
-    TH1D* h_invMass_4l = new TH1D();
-    TH1D* h_pT_4l = new TH1D();
+    /*  Test these   */
+
+    /*  Possible future histograms   */
+    // TH1D* h_pT_ee12 = new TH1D();
+    // TH1D* h_pT_ee34 = new TH1D();
+    // TH1D* h_pT_uu12 = new TH1D();
+    // TH1D* h_pT_uu34 = new TH1D();
     // TH1D* h_pT_ee_lead = new TH1D();
     // TH1D* h_pT_ee_sublead = new TH1D();
     // TH1D* h_pT_uu_lead = new TH1D();
