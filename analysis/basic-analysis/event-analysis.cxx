@@ -64,9 +64,9 @@ StatusCode MyxAODAnalysis :: initialize ()
 //    ANA_CHECK(event->writeTo(file));
 
     //Progenitor (H)
-    ANA_CHECK (book (TH1D("h_m_H", "h_m_H", 100, 0, 900)));
+    ANA_CHECK (book (TH1D("h_m_H", "h_m_H", 100, 0, 1000)));
     ANA_CHECK (book (TH1D("h_pT_H", "h_pT_H", 100, 0, 500)));
-    ANA_CHECK (book (TH1D("h_eta_H","h_eta_H", 100, -4.5, 4.5)));
+    ANA_CHECK (book (TH1D("h_eta_H","h_eta_H", 100, -5.5, 5.5)));
     ANA_CHECK (book (TH1D("h_phi_H", "h_phi_H", 100, -4.5, 4.5)));
     //Additional Scalar (S)
     ANA_CHECK (book (TH1D("h_m_S1", "h_m_S1", 100, 0, 200)));
@@ -120,7 +120,7 @@ StatusCode MyxAODAnalysis :: initialize ()
     ANA_CHECK (book (TH1D("h_invMass_4l", "h_invMass_4l", 100, 0, 200)));
     ANA_CHECK (book (TH1D("h_pT_2l_leading", "h_pT_2l_leading", 100, 0, 500)));
     ANA_CHECK (book (TH1D("h_pT_2l_subleading", "h_pT_2l_subleading", 100, 0, 500)));
-    ANA_CHECK (book (TH1D("h_pT_4l", "h_pT_4l", 100, 0, 500)));
+    ANA_CHECK (book (TH1D("h_pT_4l", "h_pT_4l", 100, 0, 1000)));
 
     return StatusCode::SUCCESS;
 }
@@ -209,7 +209,8 @@ StatusCode MyxAODAnalysis :: execute ()
         /*------------------------ SECTION 1 - FIND PARTICLES, GET KINEMATICS ------------------------*/
         const xAOD::TruthParticle* truth = *truth_itr;
         //Initialize bitmask variables
-        bool l1_bool, l3_bool, l5_bool, l7_bool = false;
+        // bool l1_bool, l3_bool, l5_bool, l7_bool = false;
+        bool l1_bool = false, l3_bool = false, l5_bool = false, l7_bool = false;
 
         // Find Higgs and then the rest
         if(truth->pdgId()==25){
@@ -218,10 +219,8 @@ StatusCode MyxAODAnalysis :: execute ()
                 const xAOD::TruthVertex* decayVtx = truth->decayVtx();
                 if ( !(decayVtx -> nOutgoingParticles() == 2)){
                     // ANA_MSG_INFO("Higgs decaying in " << decayVtx->nOutgoingParticles() << " particles");
-
-                    const xAOD::TruthParticle* H_child = decayVtx->outgoingParticle(0);
-                    std::cout << "H_child pdgID: " << H_child->pdgId() << " ___ ";
-
+                    // const xAOD::TruthParticle* H_child = decayVtx->outgoingParticle(0);
+                    // std::cout << "H_child pdgID: " << H_child->pdgId() << " ___ ";
                     continue;
                 }
                 //ANA_MSG_INFO("Higgs found");
@@ -282,10 +281,11 @@ StatusCode MyxAODAnalysis :: execute ()
                                 const xAOD::TruthParticle* childl7 = Zd4_decayVtx->outgoingParticle(0);
                                 const xAOD::TruthParticle* childl8 = Zd4_decayVtx->outgoingParticle(1);
                                 // Print pdgIDs
-                                cout << "[" << childl1->pdgId() << ", " << childl2->pdgId() << "]  ";
-                                cout << "[" << childl3->pdgId() << ", " << childl4->pdgId() << "]  ";
-                                cout << "[" << childl5->pdgId() << ", " << childl6->pdgId() << "]  ";
-                                cout << "[" << childl7->pdgId() << ", " << childl8->pdgId() << "]" << endl;;
+                                cout << "___pdgId's___ " << endl;
+                                // cout << "[" << childl1->pdgId() << ", " << childl2->pdgId() << "]  ";
+                                // cout << "[" << childl3->pdgId() << ", " << childl4->pdgId() << "]  ";
+                                // cout << "[" << childl5->pdgId() << ", " << childl6->pdgId() << "]  ";
+                                // cout << "[" << childl7->pdgId() << ", " << childl8->pdgId() << "]" << endl;
 
                                 /* Visible lepton kinematics
                                 Assumme the following:
@@ -354,13 +354,11 @@ StatusCode MyxAODAnalysis :: execute ()
                                 //Determine leading and subleading pair
                                 pT_2l_Lead = get_lead_sublead_pT(pT_l1l2, pT_l3l4)[0];
                                 pT_2l_Sublead = get_lead_sublead_pT(pT_l1l2, pT_l3l4)[1];
+                                pT_4l = pT_2l_Lead + pT_2l_Sublead;
                                 //4l invariant mass
                                 invM_l1l2 = vec_l1l2.M();
                                 invM_l3l4 = vec_l3l4.M();
                                 invM_4l = (vec_l1l2 + vec_l3l4).M();
-
-                                int bitmask_test = pow(2,3)*l1_bool + pow(2,2)*l3_bool + pow(2,1)*l5_bool + pow(2,0)*l7_bool;
-                                cout << "Bitmask value: " << bitmask_test << endl;
 
                             }//close Zd decay check
                         }//close Zd identity check
