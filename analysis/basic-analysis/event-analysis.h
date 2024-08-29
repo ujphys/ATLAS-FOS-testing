@@ -113,6 +113,12 @@ public:
     TH1* h_missingET_NonInt;
 
     /*  Test these   */
+    TH1D* h_eta_l1l2 = new TH1D();
+    TH1D* h_eta_l3l4 = new TH1D();
+    TH1D* h_eta_4l = new TH1D();
+    TH1D* h_phi_l1l2 = new TH1D();
+    TH1D* h_phi_l3l4 = new TH1D();
+    TH1D* h_phi_4l = new TH1D();
 
     /*  Possible future histograms   */
     // TH1D* h_pT_ee12 = new TH1D();
