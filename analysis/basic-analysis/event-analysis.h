@@ -28,18 +28,22 @@ public:
     // protected from being send from the submission node to the worker
     // node (done by the //!)
 public:
+    /*
+    Histogram names should follow this format
+    h_ {variable}_{particle type}{particle number}_{optional descriptor}
+    Examples:
+    h_m_Zd2 --> mass histogram of the 2nd dark vector boson (Zd2)
+    h_pT_2l_leading --> transverse momentum for leading dilepton (2l)
+    */
+
     //Mass hists //
-    TH1D* h_mH = new TH1D();
-    TH1D* h_mS1 = new TH1D();
-    TH1D* h_mS2 = new TH1D();
-    TH1D* h_mZd1 = new TH1D(); //Zd
-    TH1D* h_mZd2 = new TH1D();
-    TH1D* h_mZd3 = new TH1D();
-    TH1D* h_mZd4 = new TH1D();
-    // TH1D* h_m4l = new TH1D();
-    // TH1D* h_m2l = new TH1D();
-    // TH1D* h_m2l_leading = new TH1D();
-    // TH1D* h_m2l_subleading = new TH1D();
+    TH1D* h_m_H = new TH1D();
+    TH1D* h_m_S1 = new TH1D();
+    TH1D* h_m_S2 = new TH1D();
+    TH1D* h_m_Zd1 = new TH1D(); //Zd
+    TH1D* h_m_Zd2 = new TH1D();
+    TH1D* h_m_Zd3 = new TH1D();
+    TH1D* h_m_Zd4 = new TH1D();
     //pT hists //
     TH1D* h_pT_H = new TH1D();
     TH1D* h_pT_S1 = new TH1D();
@@ -88,11 +92,39 @@ public:
     TH1D* h_phi_u2 = new TH1D();
     TH1D* h_phi_u3 = new TH1D();
     TH1D* h_phi_u4 = new TH1D();
+    //Energy hists //
+    // TH1D* h_e_e1 = new TH1D(); //Electrons
+    // TH1D* h_e_e2 = new TH1D();
+    // TH1D* h_e_e3 = new TH1D();
+    // TH1D* h_e_e4 = new TH1D();
+    // TH1D* h_e_u1 = new TH1D(); //Muons
+    // TH1D* h_e_u2 = new TH1D();
+    // TH1D* h_e_u3 = new TH1D();
+    // TH1D* h_e_u4 = new TH1D();
+    //Multi lepton hists //
+    TH1D* h_pT_2l_leading = new TH1D();
+    TH1D* h_pT_2l_subleading = new TH1D();
+    TH1D* h_pT_4l = new TH1D();
+    TH1D* h_invMass_l1l2 = new TH1D();
+    TH1D* h_invMass_l3l4 = new TH1D();
+    TH1D* h_invMass_4l = new TH1D();
     //MET hists //
     TH1* h_missingET;
     TH1* h_missingET_NonInt;
-    
-//    // this is a standard constructor
+
+    /*  Test these   */
+
+    /*  Possible future histograms   */
+    // TH1D* h_pT_ee12 = new TH1D();
+    // TH1D* h_pT_ee34 = new TH1D();
+    // TH1D* h_pT_uu12 = new TH1D();
+    // TH1D* h_pT_uu34 = new TH1D();
+    // TH1D* h_pT_ee_lead = new TH1D();
+    // TH1D* h_pT_ee_sublead = new TH1D();
+    // TH1D* h_pT_uu_lead = new TH1D();
+    // TH1D* h_pT_uu_sublead = new TH1D();
+
+//    this is a standard constructor
 //
     virtual StatusCode initialize () override;
     virtual StatusCode execute () override;
