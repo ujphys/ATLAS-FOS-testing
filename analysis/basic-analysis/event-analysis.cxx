@@ -285,9 +285,9 @@ StatusCode MyxAODAnalysis :: execute ()
                                 const xAOD::TruthParticle* childl3 = Zd2_decayVtx->outgoingParticle(0);
                                 const xAOD::TruthParticle* childl4 = Zd2_decayVtx->outgoingParticle(1);
                                 const xAOD::TruthParticle* childl5 = Zd3_decayVtx->outgoingParticle(0);
-                                const xAOD::TruthParticle* childl6 = Zd3_decayVtx->outgoingParticle(1);
+                                // const xAOD::TruthParticle* childl6 = Zd3_decayVtx->outgoingParticle(1);
                                 const xAOD::TruthParticle* childl7 = Zd4_decayVtx->outgoingParticle(0);
-                                const xAOD::TruthParticle* childl8 = Zd4_decayVtx->outgoingParticle(1);
+                                // const xAOD::TruthParticle* childl8 = Zd4_decayVtx->outgoingParticle(1);
                                 // Print pdgIDs
                                 // cout << "___pdgId's___ " << endl;
                                 // cout << "[" << childl1->pdgId() << ", " << childl2->pdgId() << "]  ";
@@ -327,7 +327,12 @@ StatusCode MyxAODAnalysis :: execute ()
                                     eta_l1l2 = vec_l1l2.Eta();
                                     phi_l1l2 = vec_l1l2.Phi();
                                     double pT_l1l2_2 = pT_e1 + pT_e2;
-                                    cout << "Compare .Pt() to sum: " << pT_l1l2 << " | " << pT_l1l2 << endl;
+                                    cout << "Electrons __________" << endl;
+                                    cout << "e1 (Pt, Eta, Phi, E): " << "(" << vec_e1.Pt() << ", " << vec_e1.Eta() << ", " << vec_e1.Phi() << ", " << vec_e1.E() << ",)" << endl;
+                                    cout << "e2 (Pt, Eta, Phi, E): " << "(" << vec_e2.Pt() << ", " << vec_e2.Eta() << ", " << vec_e2.Phi() << ", " << vec_e2.E() << ",)" << endl;
+                                    cout << "e1e2: Method 1: " << pT_l1l2 << " | Method 2:" << pT_l1l2_2 << endl;
+                                    cout << "e1e2: Difference: " << pT_l1l2_2 - pT_l1l2 << " | %% difference: " << 100*(pT_l1l2_2 - pT_l1l2)/pT_l1l2_2 << endl;
+
                                 }
                                 if (childl1->absPdgId()==13){
                                     pT_u1 = childl1 -> pt(); pT_u2 = childl2 -> pt();
@@ -337,7 +342,15 @@ StatusCode MyxAODAnalysis :: execute ()
                                     vec_u1 = get_PtEtaPhiEVector(pT_u1, eta_u1, phi_u1, e_u1);
                                     vec_u2 = get_PtEtaPhiEVector(pT_u2, eta_u2, phi_u2, e_u2);
                                     vec_l1l2 = vec_u1 + vec_u2;
-                                    pT_l1l2 = pT_u1 + pT_u2;
+                                    pT_l1l2 = vec_l1l2.Pt();
+                                    eta_l1l2 = vec_l1l2.Eta();
+                                    phi_l1l2 = vec_l1l2.Phi();
+                                    double pT_l1l2_2 = pT_u1 + pT_u2;
+                                    cout << "Muons ~~~~~~~~~" << endl;
+                                    cout << "u1 (Pt, Eta, Phi, E): " << "(" << vec_u1.Pt() << ", " << vec_u1.Eta() << ", " << vec_u1.Phi() << ", " << vec_u1.E() << ",)" << endl;
+                                    cout << "u2 (Pt, Eta, Phi, E): " << "(" << vec_u2.Pt() << ", " << vec_u2.Eta() << ", " << vec_u2.Phi() << ", " << vec_u2.E() << ",)" << endl;
+                                    cout << "u1u2: Method 1: " << pT_l1l2 << " | Method 2:" << pT_l1l2_2 << endl;
+                                    cout << "u1u2: Difference: " << pT_l1l2_2 - pT_l1l2 << " | %% difference: " << 100*(pT_l1l2_2 - pT_l1l2)/pT_l1l2_2 << endl;
                                 }
                                 //Pair-34
                                 if (childl3->absPdgId()==11){
@@ -348,7 +361,15 @@ StatusCode MyxAODAnalysis :: execute ()
                                     vec_e3 = get_PtEtaPhiEVector(pT_e3, eta_e3, phi_e3, e_e3);
                                     vec_e4 = get_PtEtaPhiEVector(pT_e4, eta_e4, phi_e4, e_e4);
                                     vec_l3l4 = vec_e3 + vec_e4;
-                                    pT_l3l4 = pT_e3 + pT_e4;
+                                    pT_l3l4 = vec_l3l4.Pt();
+                                    eta_l3l4 = vec_l3l4.Eta();
+                                    phi_l3l4 = vec_l3l4.Phi();
+                                    double pT_l3l4_2 = pT_e3 + pT_e4;
+                                    cout << "Electrons __________" << endl;
+                                    cout << "e3 (Pt, Eta, Phi, E): " << "(" << vec_e3.Pt() << ", " << vec_e3.Eta() << ", " << vec_e3.Phi() << ", " << vec_e3.E() << ",)" << endl;
+                                    cout << "e4 (Pt, Eta, Phi, E): " << "(" << vec_e4.Pt() << ", " << vec_e4.Eta() << ", " << vec_e4.Phi() << ", " << vec_e4.E() << ",)" << endl;
+                                    cout << "e3e4: Method 1: " << pT_l3l4 << " | Method 2: " << pT_l3l4_2 << endl;
+                                    cout << "e3e4: Difference: " << pT_l3l4_2 - pT_l3l4 << " | %% difference: " << 100*(pT_l3l4_2 - pT_l3l4)/pT_l3l4_2 << endl;
                                 }
                                 if (childl3->absPdgId()==13){
                                     pT_u3 = childl3 -> pt(); pT_u4 = childl4 -> pt();
@@ -358,7 +379,15 @@ StatusCode MyxAODAnalysis :: execute ()
                                     vec_u3 = get_PtEtaPhiEVector(pT_u3, eta_u3, phi_u3, e_u3);
                                     vec_u4 = get_PtEtaPhiEVector(pT_u4, eta_u4, phi_u4, e_u4);
                                     vec_l3l4 = vec_u3 + vec_u4;
-                                    pT_l3l4 = pT_u3 + pT_u4;
+                                    pT_l3l4 = vec_l3l4.Pt();
+                                    eta_l3l4 = vec_l3l4.Eta();
+                                    phi_l3l4 = vec_l3l4.Phi();
+                                    double pT_l3l4_2 = pT_u3 + pT_u4;
+                                    cout << "Muons ~~~~~~~~~" << endl;
+                                    cout << "u3 (Pt, Eta, Phi, E): " << "(" << vec_u3.Pt() << ", " << vec_u3.Eta() << ", " << vec_u3.Phi() << ", " << vec_u3.E() << ",)" << endl;
+                                    cout << "u4 (Pt, Eta, Phi, E): " << "(" << vec_u4.Pt() << ", " << vec_u4.Eta() << ", " << vec_u4.Phi() << ", " << vec_u4.E() << ",)" << endl;
+                                    cout << "u3u4: Method 1: " << pT_l3l4 << " | Method 2: " << pT_l3l4_2 << endl;
+                                    cout << "u3u4: Difference: " << pT_l3l4_2 - pT_l3l4 << " | %% difference: " << 100*(pT_l3l4_2 - pT_l3l4)/pT_l3l4_2 << endl;
 
                                     //Potential more efficient way
                                     // vec_u3 = get_PtEtaPhiEVector(childl3 -> pt(),
