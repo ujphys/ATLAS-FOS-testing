@@ -95,34 +95,32 @@ StatusCode MyxAODAnalysis :: initialize ()
     ANA_CHECK (book (TH1D("h_phi_Zd3", "h_phi_Zd3", 100, -4.5, 4.5)));
     ANA_CHECK (book (TH1D("h_phi_Zd4", "h_phi_Zd4", 100, -4.5, 4.5)));
     //Visible leptons (e; u;)
-    ANA_CHECK (book (TH1D("h_pT_e1", "h_pT_e1", 100, 0, 500))); ANA_CHECK (book (TH1D("h_pT_u1", "h_pT_u1", 100, 0, 500)));
+    ANA_CHECK (book (TH1D("h_pT_e1", "h_pT_e1", 100, 0, 500))); ANA_CHECK (book (TH1D("h_pT_u1", "h_pT_u1", 100, 0, 500))); //pT
     ANA_CHECK (book (TH1D("h_pT_e2", "h_pT_e2", 100, 0, 500))); ANA_CHECK (book (TH1D("h_pT_u2", "h_pT_u2", 100, 0, 500)));
     ANA_CHECK (book (TH1D("h_pT_e3", "h_pT_e3", 100, 0, 500))); ANA_CHECK (book (TH1D("h_pT_u3", "h_pT_u3", 100, 0, 500)));
     ANA_CHECK (book (TH1D("h_pT_e4", "h_pT_e4", 100, 0, 500))); ANA_CHECK (book (TH1D("h_pT_u4", "h_pT_u4", 100, 0, 500)));
-    ANA_CHECK (book (TH1D("h_eta_e1","h_eta_e1", 100, -4.5, 4.5))); ANA_CHECK (book (TH1D("h_eta_u1","h_eta_u1", 100, -4.5, 4.5)));
+    ANA_CHECK (book (TH1D("h_eta_e1","h_eta_e1", 100, -4.5, 4.5))); ANA_CHECK (book (TH1D("h_eta_u1","h_eta_u1", 100, -4.5, 4.5))); //eta
     ANA_CHECK (book (TH1D("h_eta_e2","h_eta_e2", 100, -4.5, 4.5))); ANA_CHECK (book (TH1D("h_eta_u2","h_eta_u2", 100, -4.5, 4.5)));
     ANA_CHECK (book (TH1D("h_eta_e3","h_eta_e3", 100, -4.5, 4.5))); ANA_CHECK (book (TH1D("h_eta_u3","h_eta_u3", 100, -4.5, 4.5)));
     ANA_CHECK (book (TH1D("h_eta_e4","h_eta_e4", 100, -4.5, 4.5))); ANA_CHECK (book (TH1D("h_eta_u4","h_eta_u4", 100, -4.5, 4.5)));
-    ANA_CHECK (book (TH1D("h_phi_e1","h_phi_e1", 100, -4.5, 4.5))); ANA_CHECK (book (TH1D("h_phi_u1","h_phi_u1", 100, -4.5, 4.5)));
+    ANA_CHECK (book (TH1D("h_phi_e1","h_phi_e1", 100, -4.5, 4.5))); ANA_CHECK (book (TH1D("h_phi_u1","h_phi_u1", 100, -4.5, 4.5))); //phi
     ANA_CHECK (book (TH1D("h_phi_e2","h_phi_e2", 100, -4.5, 4.5))); ANA_CHECK (book (TH1D("h_phi_u2","h_phi_u2", 100, -4.5, 4.5)));
     ANA_CHECK (book (TH1D("h_phi_e3","h_phi_e3", 100, -4.5, 4.5))); ANA_CHECK (book (TH1D("h_phi_u3","h_phi_u3", 100, -4.5, 4.5)));
     ANA_CHECK (book (TH1D("h_phi_e4","h_phi_e4", 100, -4.5, 4.5))); ANA_CHECK (book (TH1D("h_phi_u4","h_phi_u4", 100, -4.5, 4.5)));
     //Multileptons
-    ANA_CHECK (book (TH1D("h_pT_lead", "h_pT_lead", 100, 0, 500)));
-    ANA_CHECK (book (TH1D("h_pT_sublead", "h_pT_sublead", 100, 0, 500)));
+    // ANA_CHECK (book (TH1D("h_pT_lead", "h_pT_lead", 100, 0, 500)));
+    // ANA_CHECK (book (TH1D("h_pT_sublead", "h_pT_sublead", 100, 0, 500)));
     //MET
     ANA_CHECK (book (TH1F("h_missingET","h_missingET",100,0,1000)));
     ANA_CHECK (book (TH1D("h_missingET_NonInt","h_missingET_NonInt",100,0,1000)));
 
     //Testing
-    // ANA_CHECK (book (TH1D("h_M_S1", "h_M_S1", 100, 0, 200)));
-    // ANA_CHECK (book (TH1D("h_M_Zd1", "h_M_Zd1", 100, 0, 200)));
-    // ANA_CHECK (book (TH1D("h_invMass_l1l2", "h_invMass_l1l2", 100, 0, 200)));
-    // ANA_CHECK (book (TH1D("h_invMass_l3l4", "h_invMass_l3l4", 100, 0, 200)));
-    // ANA_CHECK (book (TH1D("h_invMass_4l", "h_invMass_4l", 100, 0, 200)));
-    // ANA_CHECK (book (TH1D("h_vectorInvMass_l1l2", "h_vectorInvMass_l1l2", 100, 0, 200)));
-    // ANA_CHECK (book (TH1D("h_vectorInvMass_l3l4", "h_vectorInvMass_l3l4", 100, 0, 200)));
-    // ANA_CHECK (book (TH1D("h_vectorInvMass_4l", "h_vectorInvMass_4l", 100, 0, 200)));
+    ANA_CHECK (book (TH1D("h_invMass_l1l2", "h_invMass_l1l2", 100, 0, 200)));
+    ANA_CHECK (book (TH1D("h_invMass_l3l4", "h_invMass_l3l4", 100, 0, 200)));
+    ANA_CHECK (book (TH1D("h_invMass_4l", "h_invMass_4l", 100, 0, 200)));
+    ANA_CHECK (book (TH1D("h_pT_2l_leading", "h_pT_2l_leading", 100, 0, 500)));
+    ANA_CHECK (book (TH1D("h_pT_2l_subleading", "h_pT_2l_subleading", 100, 0, 500)));
+    ANA_CHECK (book (TH1D("h_pT_4l", "h_pT_4l", 100, 0, 500)));
 
     return StatusCode::SUCCESS;
 }
@@ -147,7 +145,7 @@ double pT_e1, pT_e2, pT_e3, pT_e4, eta_e1, eta_e2, eta_e3, eta_e4, phi_e1, phi_e
 double pT_u1, pT_u2, pT_u3, pT_u4, eta_u1, eta_u2, eta_u3, eta_u4, phi_u1, phi_u2, phi_u3, phi_u4; //muon pT, eta, phi
 double e_e1, e_e2, e_e3, e_e4, px_e1, px_e2, px_e3, px_e4, py_e1, py_e2, py_e3, py_e4, pz_e1, pz_e2, pz_e3, pz_e4; //electron e, px, py, pz
 double e_u1, e_u2, e_u3, e_u4, px_u1, px_u2, px_u3, px_u4, py_u1, py_u2, py_u3, py_u4, pz_u1, pz_u2, pz_u3, pz_u4; //muon e, px, py, pz
-double pT_l1l2, pT_l3l4, pT_2l_L, pT_2l_S, pT_4l; //Multi-lepton pT
+double pT_l1l2, pT_l3l4, pT_2l_Lead, pT_2l_Sublead, pT_4l; //Multi-lepton pT
 double invM_l1l2, invM_l3l4, invM_4l; //Multi-lepton invariant masses
 // TLorentzVector vec_e1, vec_e2, vec_e3, vec_e4, vec_u1, vec_u2, vec_u3, vec_u4, vec_l1l2, vec_l3l4, vec_4l; //lepton Lorentz vectors
 ROOT::Math::PtEtaPhiEVector vec_e1, vec_e2, vec_e3, vec_e4, vec_u1, vec_u2, vec_u3, vec_u4, vec_l1l2, vec_l3l4, vec_4l; //lepton PtEtaPhiE vectors
@@ -171,11 +169,11 @@ TLorentzVector get_Lorentz(const xAOD::TruthParticle* particle){
     return particle_Lorentz;
 }
 // Create PtEtaPhiEVector from a particle pointer
-ROOT::Math::PtEtaPhiEVector get_PtPtEtaPhiEVector(const xAOD::TruthParticle* particle){
-    return ROOT::Math::PtEtaPhiEVector particle_vector (particle->pT(), particle->eta(), particle->phi(), particle->e());
-}
+// ROOT::Math::PtEtaPhiEVector get_PtEtaPhiEVector(const xAOD::TruthParticle* particle){
+//     return ROOT::Math::PtEtaPhiEVector particle_vector (particle->pT(), particle->eta(), particle->phi(), particle->e());
+// }
 // Create PtEtaPhiEVector from doubles
-ROOT::Math::PtEtaPhiEVector get_PtPtEtaPhiEVector(double pT, double eta, double phi, double e){
+ROOT::Math::PtEtaPhiEVector get_PtEtaPhiEVector(double pT, double eta, double phi, double e){
     ROOT::Math::PtEtaPhiEVector particle_vector(pT, eta, phi, e);
     return particle_vector;
 }
@@ -284,10 +282,10 @@ StatusCode MyxAODAnalysis :: execute ()
                                 const xAOD::TruthParticle* childl7 = Zd4_decayVtx->outgoingParticle(0);
                                 const xAOD::TruthParticle* childl8 = Zd4_decayVtx->outgoingParticle(1);
                                 // Print pdgIDs
-                                cout << "[" << childl1->absPdgId() << " - " << childl2->absPdgId() << "]  ";
-                                cout << "[" << childl3->absPdgId() << " - " << childl4->absPdgId() << "]  ";
-                                cout << "[" << childl5->absPdgId() << " - " << childl6->absPdgId() << "]  ";
-                                cout << "[" << childl7->absPdgId() << " - " << childl8->absPdgId() << "]" << endl;;
+                                cout << "[" << childl1->pdgId() << ", " << childl2->pdgId() << "]  ";
+                                cout << "[" << childl3->pdgId() << ", " << childl4->pdgId() << "]  ";
+                                cout << "[" << childl5->pdgId() << ", " << childl6->pdgId() << "]  ";
+                                cout << "[" << childl7->pdgId() << ", " << childl8->pdgId() << "]" << endl;;
 
                                 /* Visible lepton kinematics
                                 Assumme the following:
@@ -317,23 +315,20 @@ StatusCode MyxAODAnalysis :: execute ()
                                     eta_e1 = childl1 -> eta(); eta_e2 = childl2 -> eta();
                                     phi_e1 = childl1 -> phi(); phi_e2 = childl2 -> phi();
                                     e_e1 = childl1 -> e(); e_e2 = childl2 -> e();
-                                    vec_e1 = get_PtPtEtaPhiEVector(pT_e1, eta_e1, phi_e1, e_e1);
-                                    vec_e2 = get_PtPtEtaPhiEVector(pT_e2, eta_e2, phi_e2, e_e2);
+                                    vec_e1 = get_PtEtaPhiEVector(pT_e1, eta_e1, phi_e1, e_e1);
+                                    vec_e2 = get_PtEtaPhiEVector(pT_e2, eta_e2, phi_e2, e_e2);
                                     vec_l1l2 = vec_e1 + vec_e2;
                                     pT_l1l2 = pT_e1 + pT_e2;
-                                    
-                                    
                                 }
-                                elif (childl1->absPdgId()==13){
+                                if (childl1->absPdgId()==13){
                                     pT_u1 = childl1 -> pt(); pT_u2 = childl2 -> pt();
                                     eta_u1 = childl1 -> eta(); eta_u2 = childl2 -> eta();
                                     phi_u1 = childl1 -> phi(); phi_u2 = childl2 -> phi();
                                     e_u1 = childl1 -> e(); e_u2 = childl2 -> e();
-                                    vec_u1 = get_PtPtEtaPhiEVector(pT_u1, eta_u1, phi_u1, e_u1);
-                                    vec_u2 = get_PtPtEtaPhiEVector(pT_u2, eta_u2, phi_u2, e_u2);
+                                    vec_u1 = get_PtEtaPhiEVector(pT_u1, eta_u1, phi_u1, e_u1);
+                                    vec_u2 = get_PtEtaPhiEVector(pT_u2, eta_u2, phi_u2, e_u2);
                                     vec_l1l2 = vec_u1 + vec_u2;
                                     pT_l1l2 = pT_u1 + pT_u2;
-                                    
                                 }
                                 //Pair-34
                                 if (childl3->absPdgId()==11){
@@ -341,28 +336,31 @@ StatusCode MyxAODAnalysis :: execute ()
                                     eta_e3 = childl3 -> eta(); eta_e4 = childl4 -> eta();
                                     phi_e3 = childl3 -> phi(); phi_e4 = childl4 -> phi();
                                     e_e3 = childl3 -> e(); e_e4 = childl4 -> e();
-                                    vec_e3 = get_PtPtEtaPhiEVector(pT_e3, eta_e3, phi_e3, e_e3);
-                                    vec_e4 = get_PtPtEtaPhiEVector(pT_e4, eta_e4, phi_e4, e_e4);
+                                    vec_e3 = get_PtEtaPhiEVector(pT_e3, eta_e3, phi_e3, e_e3);
+                                    vec_e4 = get_PtEtaPhiEVector(pT_e4, eta_e4, phi_e4, e_e4);
                                     vec_l3l4 = vec_e3 + vec_e4;
                                     pT_l3l4 = pT_e3 + pT_e4;
                                 }
-                                elif (childl3->absPdgId()==13){
+                                if (childl3->absPdgId()==13){
                                     pT_u3 = childl3 -> pt(); pT_u4 = childl4 -> pt();
                                     eta_u3 = childl3 -> eta(); eta_u4 = childl4 -> eta();
                                     phi_u3 = childl3 -> phi(); phi_u4 = childl4 -> phi();
                                     e_u3 = childl3 -> e(); e_u4 = childl4 -> e();
-                                    vec_u3 = get_PtPtEtaPhiEVector(pT_u3, eta_u3, phi_u3, e_u3);
-                                    vec_u4 = get_PtPtEtaPhiEVector(pT_u4, eta_u4, phi_u4, e_u4);
+                                    vec_u3 = get_PtEtaPhiEVector(pT_u3, eta_u3, phi_u3, e_u3);
+                                    vec_u4 = get_PtEtaPhiEVector(pT_u4, eta_u4, phi_u4, e_u4);
                                     vec_l3l4 = vec_u3 + vec_u4;
                                     pT_l3l4 = pT_u3 + pT_u4;
                                 }
                                 //Determine leading and subleading pair
-                                pT_2l_L = get_lead_sublead_pT(pT_l1l2, pT_l3l4)[0];
-                                pT_2l_S = get_lead_sublead_pT(pT_l1l2, pT_l3l4)[1];
+                                pT_2l_Lead = get_lead_sublead_pT(pT_l1l2, pT_l3l4)[0];
+                                pT_2l_Sublead = get_lead_sublead_pT(pT_l1l2, pT_l3l4)[1];
                                 //4l invariant mass
-                                invM_l1l2 = vec_l1l2.M()
-                                invM_l3l4 = vec_l3l4.M()
-                                invM_4l = (vec_l1l2 + vec_l3l4).M()
+                                invM_l1l2 = vec_l1l2.M();
+                                invM_l3l4 = vec_l3l4.M();
+                                invM_4l = (vec_l1l2 + vec_l3l4).M();
+
+                                int bitmask_test = pow(2,3)*l1_bool + pow(2,2)*l3_bool + pow(2,1)*l5_bool + pow(2,0)*l7_bool;
+                                cout << "Bitmask value: " << bitmask_test << endl;
 
                             }//close Zd decay check
                         }//close Zd identity check
@@ -392,35 +390,44 @@ StatusCode MyxAODAnalysis :: execute ()
 
             //------------ Fill Kinematic Hists ------------//
             //H
-            hist ("h_m_H")->Fill (m_H/1000);
-            hist ("h_phi_H")->Fill (phi_H);
-            hist ("h_eta_H")->Fill (eta_H);
-            hist ("h_pT_H")->Fill (pT_H/1000);
+            hist ("h_m_H") -> Fill(m_H/1000);
+            hist ("h_phi_H") -> Fill(phi_H);
+            hist ("h_eta_H") -> Fill(eta_H);
+            hist ("h_pT_H") -> Fill(pT_H/1000);
             //S
-            hist ("h_m_S1")->Fill (m_S1/1000); hist ("h_m_S2")->Fill (m_S2/1000);
-            hist ("h_phi_S1")->Fill (phi_S1); hist ("h_phi_S2")->Fill (phi_S2);
-            hist ("h_eta_S1")->Fill (eta_S1); hist ("h_eta_S2")->Fill (eta_S2);
-            hist ("h_pT_S1")->Fill (pT_S1/1000); hist ("h_pT_S2")->Fill (pT_S2/1000);
+            hist ("h_m_S1") -> Fill(m_S1/1000); hist ("h_m_S2") -> Fill(m_S2/1000);
+            hist ("h_phi_S1") -> Fill(phi_S1); hist ("h_phi_S2") -> Fill(phi_S2);
+            hist ("h_eta_S1") -> Fill(eta_S1); hist ("h_eta_S2") -> Fill(eta_S2);
+            hist ("h_pT_S1") -> Fill(pT_S1/1000); hist ("h_pT_S2") -> Fill(pT_S2/1000);
             //Zd
-            hist ("h_m_Zd1")->Fill (m_Zd1/1000); hist ("h_m_Zd2")->Fill (m_Zd2/1000); hist ("h_m_Zd3")->Fill (m_Zd3/1000); hist ("h_m_Zd4")->Fill (m_Zd4/1000);
-            hist ("h_phi_Zd1")->Fill (phi_Zd1); hist ("h_phi_Zd2")->Fill (phi_Zd2); hist ("h_phi_Zd3")->Fill (phi_Zd3); hist ("h_phi_Zd4")->Fill (phi_Zd4);
-            hist ("h_eta_Zd1")->Fill (eta_Zd1); hist ("h_eta_Zd2")->Fill (eta_Zd2); hist ("h_eta_Zd3")->Fill (eta_Zd3); hist ("h_eta_Zd4")->Fill (eta_Zd4);
-            hist ("h_pT_Zd1")->Fill (pT_Zd1/1000); hist ("h_pT_Zd2")->Fill (pT_Zd2/1000); hist ("h_pT_Zd3")->Fill (pT_Zd3/1000); hist ("h_pT_Zd4")->Fill (pT_Zd4/1000);
+            hist ("h_m_Zd1") -> Fill(m_Zd1/1000); hist ("h_m_Zd2") -> Fill(m_Zd2/1000); hist ("h_m_Zd3") -> Fill(m_Zd3/1000); hist ("h_m_Zd4") -> Fill(m_Zd4/1000);
+            hist ("h_phi_Zd1") -> Fill(phi_Zd1); hist ("h_phi_Zd2") -> Fill(phi_Zd2); hist ("h_phi_Zd3") -> Fill(phi_Zd3); hist ("h_phi_Zd4") -> Fill(phi_Zd4);
+            hist ("h_eta_Zd1") -> Fill(eta_Zd1); hist ("h_eta_Zd2") -> Fill(eta_Zd2); hist ("h_eta_Zd3") -> Fill(eta_Zd3); hist ("h_eta_Zd4") -> Fill(eta_Zd4);
+            hist ("h_pT_Zd1") -> Fill(pT_Zd1/1000); hist ("h_pT_Zd2") -> Fill(pT_Zd2/1000); hist ("h_pT_Zd3") -> Fill(pT_Zd3/1000); hist ("h_pT_Zd4") -> Fill(pT_Zd4/1000);
             //Electrons
-            hist ("h_phi_e1")->Fill (phi_e1); hist ("h_phi_e2")->Fill (phi_e2); hist ("h_phi_e3")->Fill (phi_e3); hist ("h_phi_e4")->Fill (phi_e4);
-            hist ("h_eta_e1")->Fill (eta_e1); hist ("h_eta_e2")->Fill (eta_e2); hist ("h_eta_e3")->Fill (eta_e3); hist ("h_eta_e4")->Fill (eta_e4);
-            hist ("h_pT_e1")->Fill (pT_e1/1000); hist ("h_pT_e2")->Fill (pT_e2/1000); hist ("h_pT_e3")->Fill (pT_e3/1000); hist ("h_pT_e4")->Fill (pT_e4/1000);
+            hist ("h_phi_e1") -> Fill(phi_e1); hist ("h_phi_e2") -> Fill(phi_e2); hist ("h_phi_e3") -> Fill(phi_e3); hist ("h_phi_e4") -> Fill(phi_e4);
+            hist ("h_eta_e1") -> Fill(eta_e1); hist ("h_eta_e2") -> Fill(eta_e2); hist ("h_eta_e3") -> Fill(eta_e3); hist ("h_eta_e4") -> Fill(eta_e4);
+            hist ("h_pT_e1") -> Fill(pT_e1/1000); hist ("h_pT_e2") -> Fill(pT_e2/1000); hist ("h_pT_e3") -> Fill(pT_e3/1000); hist ("h_pT_e4") -> Fill(pT_e4/1000);
             //Muons
-            hist ("h_phi_u1")->Fill (phi_u1); hist ("h_phi_u2")->Fill (phi_u2); hist ("h_phi_u3")->Fill (phi_u3); hist ("h_phi_u4")->Fill (phi_u4);
-            hist ("h_eta_u1")->Fill (eta_u1); hist ("h_eta_u2")->Fill (eta_u2); hist ("h_eta_u3")->Fill (eta_u3); hist ("h_eta_u4")->Fill (eta_u4);
-            hist ("h_pT_u1")->Fill (pT_u1/1000); hist ("h_pT_u2")->Fill (pT_u2/1000); hist ("h_pT_u3")->Fill (pT_u3/1000); hist ("h_pT_u4")->Fill (pT_u4/1000);
+            hist ("h_phi_u1") -> Fill(phi_u1); hist ("h_phi_u2") -> Fill(phi_u2); hist ("h_phi_u3") -> Fill(phi_u3); hist ("h_phi_u4") -> Fill(phi_u4);
+            hist ("h_eta_u1") -> Fill(eta_u1); hist ("h_eta_u2") -> Fill(eta_u2); hist ("h_eta_u3") -> Fill(eta_u3); hist ("h_eta_u4") -> Fill(eta_u4);
+            hist ("h_pT_u1") -> Fill(pT_u1/1000); hist ("h_pT_u2") -> Fill(pT_u2/1000); hist ("h_pT_u3") -> Fill(pT_u3/1000); hist ("h_pT_u4") -> Fill(pT_u4/1000);
             //MET
             const xAOD::MissingET* truthMET_NonInt = nullptr;
             truthMET_NonInt = (*truth_MET)["NonInt"];
-            hist ("h_missingET_NonInt")->Fill (truthMET_NonInt->met()/1000); // Non-interacting MET
+            hist ("h_missingET_NonInt") -> Fill(truthMET_NonInt->met()/1000); // Non-interacting MET
             for (auto MissingET : *truth_MET ){
-                hist ("h_missingET")->Fill (MissingET->sumet()/1000); // Basic MET
+                hist ("h_missingET") -> Fill(MissingET->sumet()/1000); // Basic MET
             }
+
+            //TEST HISTS
+            hist ("h_invMass_l1l2") -> Fill(invM_l1l2/1000);
+            hist ("h_invMass_l3l4") -> Fill(invM_l3l4/1000);
+            hist ("h_invMass_4l") -> Fill(invM_4l/1000);
+            hist ("h_pT_2l_leading") -> Fill(pT_2l_Lead/1000);
+            hist ("h_pT_2l_subleading") -> Fill(pT_2l_Sublead/1000);
+            hist ("h_pT_4l") -> Fill(pT_4l/1000);
+            
         }//Close 44 bitmask
 
         //Check 22 case
@@ -449,8 +456,6 @@ StatusCode MyxAODAnalysis :: finalize ()
     std::cout << "Bitmask 3:\t" << l_multiplicity_3 << "\n";
     std::cout << "Bitmask 12:\t" << l_multiplicity_12 << "\n";
     std::cout << "Total 44:\t" << l_multiplicity_44 << "\n";
-
-    // !!! Add check for PdgID of each of l1-8 !!!
 
     std::cout << "\n\n\n";
     return StatusCode::SUCCESS;

@@ -91,40 +91,37 @@ public:
     TH1D* h_phi_u3 = new TH1D();
     TH1D* h_phi_u4 = new TH1D();
     //Energy hists //
-    TH1D* h_e_e1 = new TH1D(); //Electrons
-    TH1D* h_e_e2 = new TH1D();
-    TH1D* h_e_e3 = new TH1D();
-    TH1D* h_e_e4 = new TH1D();
-    TH1D* h_e_u1 = new TH1D(); //Muons
-    TH1D* h_e_u2 = new TH1D();
-    TH1D* h_e_u3 = new TH1D();
-    TH1D* h_e_u4 = new TH1D();
+    // TH1D* h_e_e1 = new TH1D(); //Electrons
+    // TH1D* h_e_e2 = new TH1D();
+    // TH1D* h_e_e3 = new TH1D();
+    // TH1D* h_e_e4 = new TH1D();
+    // TH1D* h_e_u1 = new TH1D(); //Muons
+    // TH1D* h_e_u2 = new TH1D();
+    // TH1D* h_e_u3 = new TH1D();
+    // TH1D* h_e_u4 = new TH1D();
     //Multi lepton hists //
-    TH1D* h_pT_ee12 = new TH1D();
-    TH1D* h_pT_ee34 = new TH1D();
-    TH1D* h_pT_uu12 = new TH1D();
-    TH1D* h_pT_uu34 = new TH1D();
+    // TH1D* h_pT_ee12 = new TH1D();
+    // TH1D* h_pT_ee34 = new TH1D();
+    // TH1D* h_pT_uu12 = new TH1D();
+    // TH1D* h_pT_uu34 = new TH1D();
     //Leading and subleading lepton hists //
-    TH1D* h_pT_ee_lead = new TH1D();
-    TH1D* h_pT_ee_sublead = new TH1D();
-    TH1D* h_pT_uu_lead = new TH1D();
-    TH1D* h_pT_uu_sublead = new TH1D();
-    TH1D* h_pT_lead = new TH1D();
-    TH1D* h_pT_sublead = new TH1D();
+    TH1D* h_pT_2l_leading = new TH1D();
+    TH1D* h_pT_2l_subleading = new TH1D();
     //MET hists //
     TH1* h_missingET;
     TH1* h_missingET_NonInt;
 
     //Test these
-    // TH1D* h_M_S1 = new TH1D();
-    // TH1D* h_M_Zd1 = new TH1D();
-    // TH1D* h_invMass_l1l2 = new TH1D();
-    // TH1D* h_invMass_l3l4 = new TH1D();
-    // TH1D* h_invMass_4l = new TH1D();
-    // TH1D* h_vectorInvMass_l1l2 = new TH1D();
-    // TH1D* h_vectorInvMass_l3l4 = new TH1D();
-    // TH1D* h_vectorInvMass_4l = new TH1D();
-//    // this is a standard constructor
+    TH1D* h_invMass_l1l2 = new TH1D();
+    TH1D* h_invMass_l3l4 = new TH1D();
+    TH1D* h_invMass_4l = new TH1D();
+    TH1D* h_pT_4l = new TH1D();
+    // TH1D* h_pT_ee_lead = new TH1D();
+    // TH1D* h_pT_ee_sublead = new TH1D();
+    // TH1D* h_pT_uu_lead = new TH1D();
+    // TH1D* h_pT_uu_sublead = new TH1D();
+
+//    this is a standard constructor
 //
     virtual StatusCode initialize () override;
     virtual StatusCode execute () override;
