@@ -124,7 +124,7 @@ StatusCode MyxAODAnalysis :: initialize ()
     ANA_CHECK (book (TH1F("h_missingET","h_missingET",100,0,1000)));
     ANA_CHECK (book (TH1D("h_missingET_NonInt","h_missingET_NonInt",100,0,1000)));
 
-    /* Testing check hists */
+    /* Testing hist checks */
     
     return StatusCode::SUCCESS;
 }
@@ -182,6 +182,13 @@ ROOT::Math::PtEtaPhiEVector get_PtEtaPhiEVector(double pT, double eta, double ph
     ROOT::Math::PtEtaPhiEVector particle_vector(pT, eta, phi, e);
     return particle_vector;
 }
+// Create PtEtaPhiEVector from a particle pointer
+ROOT::Math::PtEtaPhiEVector get_particleLV(const xAOD::TruthParticle* particle){
+    ROOT::Math::PtEtaPhiEVector particle_LV (particle->pt(), particle->eta(), particle->phi(), particle->e());
+    return particle_LV;
+}
+
+/* Testing functions */
 
 
 StatusCode MyxAODAnalysis :: execute ()
@@ -207,11 +214,6 @@ StatusCode MyxAODAnalysis :: execute ()
 
     xAOD::TruthParticleContainer::const_iterator truth_itr = truthContainer->begin();
     xAOD::TruthParticleContainer::const_iterator truth_end = truthContainer->end();
-
-    // Create PtEtaPhiEVector from a particle pointer
-    ROOT::Math::PtEtaPhiEVector get_particleLV(const xAOD::TruthParticle* particle){
-        return ROOT::Math::PtEtaPhiEVector particle_vector (particle->pT(), particle->eta(), particle->phi(), particle->e());
-    }
 
     // Loop over TruthParticle
     for( ; truth_itr != truth_end ; ++truth_itr){
@@ -321,15 +323,17 @@ StatusCode MyxAODAnalysis :: execute ()
                                 //Pair-12
                                 if (childl1->absPdgId()==11){
                                     pT_e1 = childl1 -> pt(); pT_e2 = childl2 -> pt();
-                                    eta_e1 = eta_l1 = childl1 -> eta(); eta_e2 = eta_l2 =childl2 -> eta();
+                                    eta_e1 = eta_l1 = childl1 -> eta(); eta_e2 = eta_l2 = childl2 -> eta();
                                     phi_e1 = phi_l1 =childl1 -> phi(); phi_e2 = phi_l2 = childl2 -> phi();
                                     e_e1 = childl1 -> e(); e_e2 = childl2 -> e();
                                     vec_e1 = get_PtEtaPhiEVector(pT_e1, eta_e1, phi_e1, e_e1);
                                     vec_e2 = get_PtEtaPhiEVector(pT_e2, eta_e2, phi_e2, e_e2);
                                     vec_l1l2 = vec_e1 + vec_e2;
                                     pT_l1l2 = vec_l1l2.Pt();
-                                    ROOT::Math::PtEtaPhiEVector test_vec = get_particleLV(child1);
-                                    cout << "Test vector Eta: " << test_vec.Eta() << " vs. normal method eta: " << eta_e1 << endl;
+                                    /* Potential more efficient ways */
+                                    // vec_u3 = get_PtEtaPhiEVector(childl3 -> pt(), childl3 -> eta(), childl3 -> phi(), childl3 -> e());
+                                    // or use get_particleLV() like this:
+                                    // ROOT::Math::PtEtaPhiEVector test_vec = get_particleLV(childl1);
                                 }
                                 if (childl1->absPdgId()==13){
                                     pT_u1 = childl1 -> pt(); pT_u2 = childl2 -> pt();
@@ -361,12 +365,6 @@ StatusCode MyxAODAnalysis :: execute ()
                                     vec_u4 = get_PtEtaPhiEVector(pT_u4, eta_u4, phi_u4, e_u4);
                                     vec_l3l4 = vec_u3 + vec_u4;
                                     pT_l3l4 = vec_l3l4.Pt();
-
-                                    //Potential more efficient way
-                                    // vec_u3 = get_PtEtaPhiEVector(childl3 -> pt(),
-                                    //                              childl3 -> eta(),
-                                    //                              childl3 -> phi(),
-                                    //                              childl3 -> e());
                                 }
                                 // Determine leading and subleading pair
                                 pT_2l_Lead = get_lead_sublead_pT(pT_l1l2, pT_l3l4)[0];
