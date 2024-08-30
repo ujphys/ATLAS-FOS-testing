@@ -64,10 +64,10 @@ StatusCode MyxAODAnalysis :: initialize ()
 //    ANA_CHECK(event->writeTo(file));
 
     //Progenitor (H)
-    ANA_CHECK (book (TH1D("h_pT_H", "h_pT_H", 100, 0, 1500)));
+    ANA_CHECK (book (TH1D("h_pT_H", "h_pT_H", 100, 0, 1000)));
     ANA_CHECK (book (TH1D("h_eta_H","h_eta_H", 100, -6.5, 6.5)));
     ANA_CHECK (book (TH1D("h_phi_H", "h_phi_H", 100, -4, 4)));
-    ANA_CHECK (book (TH1D("h_m_H", "h_m_H", 100, 0, 1500)));
+    ANA_CHECK (book (TH1D("h_m_H", "h_m_H", 100, 0, 1200)));
     //Additional Scalar (S)
     ANA_CHECK (book (TH1D("h_pT_S1", "h_pT_S1", 100, 0, 1000)));    ANA_CHECK (book (TH1D("h_pT_S2", "h_pT_S2", 100, 0, 1000))); //pT
     ANA_CHECK (book (TH1D("h_eta_S1","h_eta_S1", 100, -4.5, 4.5))); ANA_CHECK (book (TH1D("h_eta_S2","h_eta_S2", 100, -4.5, 4.5))); //eta
@@ -104,20 +104,28 @@ StatusCode MyxAODAnalysis :: initialize ()
     ANA_CHECK (book (TH1D("h_phi_e3","h_phi_e3", 100, -4, 4)));     ANA_CHECK (book (TH1D("h_phi_u3","h_phi_u3", 100, -4, 4)));
     ANA_CHECK (book (TH1D("h_phi_e4","h_phi_e4", 100, -4, 4)));     ANA_CHECK (book (TH1D("h_phi_u4","h_phi_u4", 100, -4, 4)));
     //Multileptons (2l = dilepton, 4l = quadruplet)
-    ANA_CHECK (book (TH1D("h_pT_2l_leading", "h_pT_2l_leading", 100, 0, 1000))); ANA_CHECK (book (TH1D("h_pT_2l_subleading", "h_pT_2l_subleading", 100, 0, 500)));
-    ANA_CHECK (book (TH1D("h_pT_4l", "h_pT_4l", 100, 0, 1000))); //pT
-    ANA_CHECK (book (TH1D("h_eta_l1l2","h_eta_l1l2", 100, -4.5, 4.5)));         ANA_CHECK (book (TH1D("h_eta_l3l4","h_eta_l3l4", 100, -4.5, 4.5)));
-    ANA_CHECK (book (TH1D("h_eta_4l","h_eta_4l", 100, -4.5, 4.5))); //eta
-    ANA_CHECK (book (TH1D("h_phi_l1l2", "h_phi_l1l2", 100, -4, 4)));            ANA_CHECK (book (TH1D("h_phi_l3l4", "h_phi_l3l4", 100, -4, 4)));
-    ANA_CHECK (book (TH1D("h_phi_4l", "h_phi_4l", 100, -4, 4))); //phi
-    ANA_CHECK (book (TH1D("h_invMass_l1l2", "h_invMass_l1l2", 100, 0, 200)));   ANA_CHECK (book (TH1D("h_invMass_l3l4", "h_invMass_l3l4", 100, 0, 200)));
-    ANA_CHECK (book (TH1D("h_invMass_4l", "h_invMass_4l", 100, 0, 200))); //invariant mass
+    ANA_CHECK (book (TH1D("h_pT_2l_leading", "h_pT_2l_leading", 100, 0, 1000))); //pT
+    ANA_CHECK (book (TH1D("h_pT_2l_subleading", "h_pT_2l_subleading", 100, 0, 500)));
+    ANA_CHECK (book (TH1D("h_pT_4l", "h_pT_4l", 100, 0, 1000)));
+    ANA_CHECK (book (TH1D("h_eta_l1l2","h_eta_l1l2", 100, -4.5, 4.5))); //eta
+    ANA_CHECK (book (TH1D("h_eta_l3l4","h_eta_l3l4", 100, -4.5, 4.5)));
+    ANA_CHECK (book (TH1D("h_eta_4l","h_eta_4l", 100, -4.5, 4.5)));
+    ANA_CHECK (book (TH1D("h_phi_l1l2", "h_phi_l1l2", 100, -4, 4))); //phi
+    ANA_CHECK (book (TH1D("h_phi_l3l4", "h_phi_l3l4", 100, -4, 4)));
+    ANA_CHECK (book (TH1D("h_phi_4l", "h_phi_4l", 100, -4, 4)));
+    ANA_CHECK (book (TH1D("h_invMass_l1l2", "h_invMass_l1l2", 100, 0, 200))); //invariant mass
+    ANA_CHECK (book (TH1D("h_invMass_l3l4", "h_invMass_l3l4", 100, 0, 200)));
+    ANA_CHECK (book (TH1D("h_invMass_4l", "h_invMass_4l", 100, 0, 200)));
+    ANA_CHECK (book (TH1D("h_deltaR_l1l2","h_deltaR_l1l2", 100, 0, 15))); //delta-R
+    ANA_CHECK (book (TH1D("h_deltaR_l1l4","h_deltaR_l1l4", 100, 0, 15)));
+    ANA_CHECK (book (TH1D("h_deltaR_l2l3","h_deltaR_l2l3", 100, 0, 15)));
+    ANA_CHECK (book (TH1D("h_deltaR_l3l4","h_deltaR_l3l4", 100, 0, 15)));
     //MET
     ANA_CHECK (book (TH1F("h_missingET","h_missingET",100,0,1000)));
     ANA_CHECK (book (TH1D("h_missingET_NonInt","h_missingET_NonInt",100,0,1000)));
 
-    //Testing
-
+    /* Testing hist checks */
+    
     return StatusCode::SUCCESS;
 }
 
@@ -144,6 +152,10 @@ double pT_l1l2, pT_l3l4, pT_2l_Lead, pT_2l_Sublead, pT_4l; //Multi-lepton pT
 double invM_l1l2, invM_l3l4, invM_4l; //Multi-lepton invariant masses
 double eta_l1l2, eta_l3l4, eta_4l, phi_l1l2, phi_l3l4, phi_4l; //Multi-lepton phi + eta
 ROOT::Math::PtEtaPhiEVector vec_e1, vec_e2, vec_e3, vec_e4, vec_u1, vec_u2, vec_u3, vec_u4, vec_l1l2, vec_l3l4, vec_4l; //lepton PtEtaPhiE vectors
+double eta_l1, eta_l2, eta_l3, eta_l4, phi_l1, phi_l2, phi_l3, phi_l4;
+double deltaR_l1l2, deltaR_l1l4, deltaR_l2l3, deltaR_l3l4;
+
+/* Testing vars */
 
 
 
@@ -156,7 +168,7 @@ vector<double> get_lead_sublead_pT(double pT_1, double pT_2){
     return pT_list;
 }
 // Calculate angular distance, delta-R, between two objects
-double delta_R(double eta1, double eta2, double phi1, double phi2){
+double get_deltaR(double eta1, double eta2, double phi1, double phi2){
     return sqrt( pow((eta1 - eta2), 2) + pow((phi1 - phi2), 2));
 }
 // Create TLorentzVector from a particle
@@ -171,10 +183,12 @@ ROOT::Math::PtEtaPhiEVector get_PtEtaPhiEVector(double pT, double eta, double ph
     return particle_vector;
 }
 // Create PtEtaPhiEVector from a particle pointer
-// ROOT::Math::PtEtaPhiEVector get_PtEtaPhiEVector(const xAOD::TruthParticle* particle){
-//     return ROOT::Math::PtEtaPhiEVector particle_vector (particle->pT(), particle->eta(), particle->phi(), particle->e());
-// }
+ROOT::Math::PtEtaPhiEVector get_particleLV(const xAOD::TruthParticle* particle){
+    ROOT::Math::PtEtaPhiEVector particle_LV (particle->pt(), particle->eta(), particle->phi(), particle->e());
+    return particle_LV;
+}
 
+/* Testing functions */
 
 
 StatusCode MyxAODAnalysis :: execute ()
@@ -200,7 +214,6 @@ StatusCode MyxAODAnalysis :: execute ()
 
     xAOD::TruthParticleContainer::const_iterator truth_itr = truthContainer->begin();
     xAOD::TruthParticleContainer::const_iterator truth_end = truthContainer->end();
-
 
     // Loop over TruthParticle
     for( ; truth_itr != truth_end ; ++truth_itr){
@@ -310,78 +323,48 @@ StatusCode MyxAODAnalysis :: execute ()
                                 //Pair-12
                                 if (childl1->absPdgId()==11){
                                     pT_e1 = childl1 -> pt(); pT_e2 = childl2 -> pt();
-                                    eta_e1 = childl1 -> eta(); eta_e2 = childl2 -> eta();
-                                    phi_e1 = childl1 -> phi(); phi_e2 = childl2 -> phi();
+                                    eta_e1 = eta_l1 = childl1 -> eta(); eta_e2 = eta_l2 = childl2 -> eta();
+                                    phi_e1 = phi_l1 =childl1 -> phi(); phi_e2 = phi_l2 = childl2 -> phi();
                                     e_e1 = childl1 -> e(); e_e2 = childl2 -> e();
                                     vec_e1 = get_PtEtaPhiEVector(pT_e1, eta_e1, phi_e1, e_e1);
                                     vec_e2 = get_PtEtaPhiEVector(pT_e2, eta_e2, phi_e2, e_e2);
                                     vec_l1l2 = vec_e1 + vec_e2;
                                     pT_l1l2 = vec_l1l2.Pt();
-                                    double pT_l1l2_2 = pT_e1 + pT_e2;
-                                    // cout << "Electrons __________" << endl;
-                                    // cout << "e1 (Pt, Eta, Phi, E): " << "(" << vec_e1.Pt() << ", " << vec_e1.Eta() << ", " << vec_e1.Phi() << ", " << vec_e1.E() << ",)" << endl;
-                                    // cout << "e2 (Pt, Eta, Phi, E): " << "(" << vec_e2.Pt() << ", " << vec_e2.Eta() << ", " << vec_e2.Phi() << ", " << vec_e2.E() << ",)" << endl;
-                                    // cout << "e1e2 (Pt, Eta, Phi, E): " << "(" << vec_l1l2.Pt() << ", " << vec_l1l2.Eta() << ", " << vec_l1l2.Phi() << ", " << vec_l1l2.E() << ")" << endl;
-                                    // cout << "e1e2: Method 1: " << pT_l1l2 << " | Method 2:" << pT_l1l2_2 << endl;
-                                    // cout << "e1e2: Difference: " << pT_l1l2_2 - pT_l1l2 << " | %% difference: " << 100*(pT_l1l2_2 - pT_l1l2)/pT_l1l2_2 << endl;
+                                    /* Potential more efficient ways */
+                                    // vec_u3 = get_PtEtaPhiEVector(childl3 -> pt(), childl3 -> eta(), childl3 -> phi(), childl3 -> e());
+                                    // or use get_particleLV() like this:
+                                    // ROOT::Math::PtEtaPhiEVector test_vec = get_particleLV(childl1);
                                 }
                                 if (childl1->absPdgId()==13){
                                     pT_u1 = childl1 -> pt(); pT_u2 = childl2 -> pt();
-                                    eta_u1 = childl1 -> eta(); eta_u2 = childl2 -> eta();
-                                    phi_u1 = childl1 -> phi(); phi_u2 = childl2 -> phi();
+                                    eta_u1 = eta_l1 = childl1 -> eta(); eta_u2 = eta_l2 =childl2 -> eta();
+                                    phi_u1 = phi_l1 =childl1 -> phi(); phi_u2 = phi_l2 = childl2 -> phi();
                                     e_u1 = childl1 -> e(); e_u2 = childl2 -> e();
                                     vec_u1 = get_PtEtaPhiEVector(pT_u1, eta_u1, phi_u1, e_u1);
                                     vec_u2 = get_PtEtaPhiEVector(pT_u2, eta_u2, phi_u2, e_u2);
                                     vec_l1l2 = vec_u1 + vec_u2;
                                     pT_l1l2 = vec_l1l2.Pt();
-                                    double pT_l1l2_2 = pT_u1 + pT_u2;
-                                    // cout << "Muons ~~~~~~~~~" << endl;
-                                    // cout << "u1 (Pt, Eta, Phi, E): " << "(" << vec_u1.Pt() << ", " << vec_u1.Eta() << ", " << vec_u1.Phi() << ", " << vec_u1.E() << ",)" << endl;
-                                    // cout << "u2 (Pt, Eta, Phi, E): " << "(" << vec_u2.Pt() << ", " << vec_u2.Eta() << ", " << vec_u2.Phi() << ", " << vec_u2.E() << ",)" << endl;
-                                    // cout << "u1u2 (Pt, Eta, Phi, E): " << "(" << vec_l1l2.Pt() << ", " << vec_l1l2.Eta() << ", " << vec_l1l2.Phi() << ", " << vec_l1l2.E() << ",)" << endl;
-                                    // cout << "u1u2: Method 1: " << pT_l1l2 << " | Method 2:" << pT_l1l2_2 << endl;
-                                    // cout << "u1u2: Difference: " << pT_l1l2_2 - pT_l1l2 << " | %% difference: " << 100*(pT_l1l2_2 - pT_l1l2)/pT_l1l2_2 << endl;
                                 }
                                 //Pair-34
                                 if (childl3->absPdgId()==11){
                                     pT_e3 = childl3 -> pt(); pT_e4 = childl4 -> pt();
-                                    eta_e3 = childl3 -> eta(); eta_e4 = childl4 -> eta();
-                                    phi_e3 = childl3 -> phi(); phi_e4 = childl4 -> phi();
+                                    eta_e3 = eta_l3 = childl3 -> eta(); eta_e4 = eta_l4 =childl4 -> eta();
+                                    phi_e3 = phi_l3 =childl3 -> phi(); phi_e4 = phi_l4 = childl4 -> phi();
                                     e_e3 = childl3 -> e(); e_e4 = childl4 -> e();
                                     vec_e3 = get_PtEtaPhiEVector(pT_e3, eta_e3, phi_e3, e_e3);
                                     vec_e4 = get_PtEtaPhiEVector(pT_e4, eta_e4, phi_e4, e_e4);
                                     vec_l3l4 = vec_e3 + vec_e4;
                                     pT_l3l4 = vec_l3l4.Pt();
-                                    double pT_l3l4_2 = pT_e3 + pT_e4;
-                                    // cout << "Electrons __________" << endl;
-                                    // cout << "e3 (Pt, Eta, Phi, E): " << "(" << vec_e3.Pt() << ", " << vec_e3.Eta() << ", " << vec_e3.Phi() << ", " << vec_e3.E() << ",)" << endl;
-                                    // cout << "e4 (Pt, Eta, Phi, E): " << "(" << vec_e4.Pt() << ", " << vec_e4.Eta() << ", " << vec_e4.Phi() << ", " << vec_e4.E() << ",)" << endl;
-                                    // cout << "e3e4 (Pt, Eta, Phi, E): " << "(" << vec_l3l4.Pt() << ", " << vec_l3l4.Eta() << ", " << vec_l3l4.Phi() << ", " << vec_l3l4.E() << ")" << endl;
-                                    // cout << "e3e4: Method 1: " << pT_l3l4 << " | Method 2: " << pT_l3l4_2 << endl;
-                                    // cout << "e3e4: Difference: " << pT_l3l4_2 - pT_l3l4 << " | %% difference: " << 100*(pT_l3l4_2 - pT_l3l4)/pT_l3l4_2 << endl;
                                 }
                                 if (childl3->absPdgId()==13){
                                     pT_u3 = childl3 -> pt(); pT_u4 = childl4 -> pt();
-                                    eta_u3 = childl3 -> eta(); eta_u4 = childl4 -> eta();
-                                    phi_u3 = childl3 -> phi(); phi_u4 = childl4 -> phi();
+                                    eta_u3 = eta_l3 = childl3 -> eta(); eta_u4 = eta_l4 =childl4 -> eta();
+                                    phi_u3 = phi_l3 =childl3 -> phi(); phi_u4 = phi_l4 = childl4 -> phi();
                                     e_u3 = childl3 -> e(); e_u4 = childl4 -> e();
                                     vec_u3 = get_PtEtaPhiEVector(pT_u3, eta_u3, phi_u3, e_u3);
                                     vec_u4 = get_PtEtaPhiEVector(pT_u4, eta_u4, phi_u4, e_u4);
                                     vec_l3l4 = vec_u3 + vec_u4;
                                     pT_l3l4 = vec_l3l4.Pt();
-                                    double pT_l3l4_2 = pT_u3 + pT_u4;
-                                    // cout << "Muons ~~~~~~~~~" << endl;
-                                    // cout << "u3 (Pt, Eta, Phi, E): " << "(" << vec_u3.Pt() << ", " << vec_u3.Eta() << ", " << vec_u3.Phi() << ", " << vec_u3.E() << ",)" << endl;
-                                    // cout << "u4 (Pt, Eta, Phi, E): " << "(" << vec_u4.Pt() << ", " << vec_u4.Eta() << ", " << vec_u4.Phi() << ", " << vec_u4.E() << ",)" << endl;
-                                    // cout << "u3u4 (Pt, Eta, Phi, E): " << "(" << vec_l3l4.Pt() << ", " << vec_l3l4.Eta() << ", " << vec_l3l4.Phi() << ", " << vec_l3l4.E() << ",)" << endl;
-                                    // cout << "u3u4: Method 1: " << pT_l3l4 << " | Method 2: " << pT_l3l4_2 << endl;
-                                    // cout << "u3u4: Difference: " << pT_l3l4_2 - pT_l3l4 << " | %% difference: " << 100*(pT_l3l4_2 - pT_l3l4)/pT_l3l4_2 << endl;
-
-                                    //Potential more efficient way
-                                    // vec_u3 = get_PtEtaPhiEVector(childl3 -> pt(),
-                                    //                              childl3 -> eta(),
-                                    //                              childl3 -> phi(),
-                                    //                              childl3 -> e());
                                 }
                                 // Determine leading and subleading pair
                                 pT_2l_Lead = get_lead_sublead_pT(pT_l1l2, pT_l3l4)[0];
@@ -398,6 +381,11 @@ StatusCode MyxAODAnalysis :: execute ()
                                 phi_l3l4 = vec_l3l4.Phi();
                                 eta_4l = (vec_l1l2 + vec_l3l4).Eta();
                                 phi_4l = (vec_l1l2 + vec_l3l4).Phi();
+                                // Delta-R between leptons
+                                deltaR_l1l2 = get_deltaR(eta_l1, eta_l2, phi_l1, phi_l2);
+                                deltaR_l1l4 = get_deltaR(eta_l1, eta_l4, phi_l1, phi_l4);
+                                deltaR_l2l3 = get_deltaR(eta_l2, eta_l3, phi_l2, phi_l3);
+                                deltaR_l3l4 = get_deltaR(eta_l3, eta_l4, phi_l3, phi_l4);
 
                             }//close Zd decay check
                         }//close Zd identity check
@@ -454,6 +442,10 @@ StatusCode MyxAODAnalysis :: execute ()
             hist ("h_eta_l1l2") -> Fill(eta_l1l2); hist ("h_eta_l3l4") -> Fill(eta_l3l4); hist ("h_eta_4l") -> Fill(eta_4l);
             hist ("h_phi_l1l2") -> Fill(phi_l1l2); hist ("h_phi_l3l4") -> Fill(phi_l3l4); hist ("h_phi_4l") -> Fill(phi_4l);
             hist ("h_invMass_l1l2") -> Fill(invM_l1l2/1000); hist ("h_invMass_l3l4") -> Fill(invM_l3l4/1000); hist ("h_invMass_4l") -> Fill(invM_4l/1000);
+            hist ("h_deltaR_l1l2") -> Fill(deltaR_l1l2);
+            hist ("h_deltaR_l1l4") -> Fill(deltaR_l1l4);
+            hist ("h_deltaR_l2l3") -> Fill(deltaR_l2l3);
+            hist ("h_deltaR_l3l4") -> Fill(deltaR_l3l4);
             //MET
             const xAOD::MissingET* truthMET_NonInt = nullptr;
             truthMET_NonInt = (*truth_MET)["NonInt"];
@@ -462,8 +454,7 @@ StatusCode MyxAODAnalysis :: execute ()
                 hist ("h_missingET") -> Fill(MissingET->sumet()/1000); // Basic MET
             }
 
-            //TEST HISTS
-            
+            /* Testing fill hists */
             
             
         }//Close 44 bitmask

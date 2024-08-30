@@ -102,18 +102,22 @@ public:
     // TH1D* h_e_u3 = new TH1D();
     // TH1D* h_e_u4 = new TH1D();
     //Multi lepton hists //
-    TH1D* h_pT_2l_leading = new TH1D();
+    TH1D* h_pT_2l_leading = new TH1D(); //Dilepton and quadruplet pT
     TH1D* h_pT_2l_subleading = new TH1D();
     TH1D* h_pT_4l = new TH1D();
-    TH1D* h_eta_l1l2 = new TH1D();
+    TH1D* h_eta_l1l2 = new TH1D(); //Dilepton and quadruplet eta
     TH1D* h_eta_l3l4 = new TH1D();
     TH1D* h_eta_4l = new TH1D();
-    TH1D* h_phi_l1l2 = new TH1D();
+    TH1D* h_phi_l1l2 = new TH1D(); //Dilepton and quadruplet phi
     TH1D* h_phi_l3l4 = new TH1D();
     TH1D* h_phi_4l = new TH1D();
-    TH1D* h_invMass_l1l2 = new TH1D();
+    TH1D* h_invMass_l1l2 = new TH1D(); //Dilepton and quadruplet invariant mass
     TH1D* h_invMass_l3l4 = new TH1D();
     TH1D* h_invMass_4l = new TH1D();
+    TH1D* h_deltaR_l1l2 = new TH1D(); //Delta-R between lepton pairs
+    TH1D* h_deltaR_l1l4 = new TH1D();
+    TH1D* h_deltaR_l2l3 = new TH1D();
+    TH1D* h_deltaR_l3l4 = new TH1D();
     //MET hists //
     TH1* h_missingET;
     TH1* h_missingET_NonInt;
