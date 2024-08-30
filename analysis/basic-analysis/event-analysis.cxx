@@ -116,8 +116,11 @@ StatusCode MyxAODAnalysis :: initialize ()
     ANA_CHECK (book (TH1F("h_missingET","h_missingET",100,0,1000)));
     ANA_CHECK (book (TH1D("h_missingET_NonInt","h_missingET_NonInt",100,0,1000)));
 
-    //Testing
-
+    /* Testing check hists */
+    ANA_CHECK (book (TH1D("h_deltaR_l1l2","h_deltaR_l1l2", 100, 0, 15)));
+    ANA_CHECK (book (TH1D("h_deltaR_l1l4","h_deltaR_l1l4", 100, 0, 15)));
+    ANA_CHECK (book (TH1D("h_deltaR_l2l3","h_deltaR_l2l3", 100, 0, 15)));
+    ANA_CHECK (book (TH1D("h_deltaR_l3l4","h_deltaR_l3l4", 100, 0, 15)));
     return StatusCode::SUCCESS;
 }
 
@@ -145,6 +148,9 @@ double invM_l1l2, invM_l3l4, invM_4l; //Multi-lepton invariant masses
 double eta_l1l2, eta_l3l4, eta_4l, phi_l1l2, phi_l3l4, phi_4l; //Multi-lepton phi + eta
 ROOT::Math::PtEtaPhiEVector vec_e1, vec_e2, vec_e3, vec_e4, vec_u1, vec_u2, vec_u3, vec_u4, vec_l1l2, vec_l3l4, vec_4l; //lepton PtEtaPhiE vectors
 
+/* Testing vars */
+double eta_l1, eta_l2, eta_l3, eta_l4, phi_l1, phi_l2, phi_l3, phi_l4;
+double deltaR_l1l2, deltaR_l1l4, deltaR_l2l3, deltaR_l3l4;
 
 
 /* Useful functions */
@@ -156,7 +162,7 @@ vector<double> get_lead_sublead_pT(double pT_1, double pT_2){
     return pT_list;
 }
 // Calculate angular distance, delta-R, between two objects
-double delta_R(double eta1, double eta2, double phi1, double phi2){
+double get_deltaR(double eta1, double eta2, double phi1, double phi2){
     return sqrt( pow((eta1 - eta2), 2) + pow((phi1 - phi2), 2));
 }
 // Create TLorentzVector from a particle
@@ -310,14 +316,14 @@ StatusCode MyxAODAnalysis :: execute ()
                                 //Pair-12
                                 if (childl1->absPdgId()==11){
                                     pT_e1 = childl1 -> pt(); pT_e2 = childl2 -> pt();
-                                    eta_e1 = childl1 -> eta(); eta_e2 = childl2 -> eta();
-                                    phi_e1 = childl1 -> phi(); phi_e2 = childl2 -> phi();
+                                    eta_e1 = eta_l1 = childl1 -> eta(); eta_e2 = eta_l2 =childl2 -> eta();
+                                    phi_e1 = phi_l1 =childl1 -> phi(); phi_e2 = phi_l2 = childl2 -> phi();
                                     e_e1 = childl1 -> e(); e_e2 = childl2 -> e();
                                     vec_e1 = get_PtEtaPhiEVector(pT_e1, eta_e1, phi_e1, e_e1);
                                     vec_e2 = get_PtEtaPhiEVector(pT_e2, eta_e2, phi_e2, e_e2);
                                     vec_l1l2 = vec_e1 + vec_e2;
                                     pT_l1l2 = vec_l1l2.Pt();
-                                    double pT_l1l2_2 = pT_e1 + pT_e2;
+                                    // double pT_l1l2_2 = pT_e1 + pT_e2;
                                     // cout << "Electrons __________" << endl;
                                     // cout << "e1 (Pt, Eta, Phi, E): " << "(" << vec_e1.Pt() << ", " << vec_e1.Eta() << ", " << vec_e1.Phi() << ", " << vec_e1.E() << ",)" << endl;
                                     // cout << "e2 (Pt, Eta, Phi, E): " << "(" << vec_e2.Pt() << ", " << vec_e2.Eta() << ", " << vec_e2.Phi() << ", " << vec_e2.E() << ",)" << endl;
@@ -327,14 +333,14 @@ StatusCode MyxAODAnalysis :: execute ()
                                 }
                                 if (childl1->absPdgId()==13){
                                     pT_u1 = childl1 -> pt(); pT_u2 = childl2 -> pt();
-                                    eta_u1 = childl1 -> eta(); eta_u2 = childl2 -> eta();
-                                    phi_u1 = childl1 -> phi(); phi_u2 = childl2 -> phi();
+                                    eta_u1 = eta_l1 = childl1 -> eta(); eta_u2 = eta_l2 =childl2 -> eta();
+                                    phi_u1 = phi_l1 =childl1 -> phi(); phi_u2 = phi_l2 = childl2 -> phi();
                                     e_u1 = childl1 -> e(); e_u2 = childl2 -> e();
                                     vec_u1 = get_PtEtaPhiEVector(pT_u1, eta_u1, phi_u1, e_u1);
                                     vec_u2 = get_PtEtaPhiEVector(pT_u2, eta_u2, phi_u2, e_u2);
                                     vec_l1l2 = vec_u1 + vec_u2;
                                     pT_l1l2 = vec_l1l2.Pt();
-                                    double pT_l1l2_2 = pT_u1 + pT_u2;
+                                    // double pT_l1l2_2 = pT_u1 + pT_u2;
                                     // cout << "Muons ~~~~~~~~~" << endl;
                                     // cout << "u1 (Pt, Eta, Phi, E): " << "(" << vec_u1.Pt() << ", " << vec_u1.Eta() << ", " << vec_u1.Phi() << ", " << vec_u1.E() << ",)" << endl;
                                     // cout << "u2 (Pt, Eta, Phi, E): " << "(" << vec_u2.Pt() << ", " << vec_u2.Eta() << ", " << vec_u2.Phi() << ", " << vec_u2.E() << ",)" << endl;
@@ -345,14 +351,14 @@ StatusCode MyxAODAnalysis :: execute ()
                                 //Pair-34
                                 if (childl3->absPdgId()==11){
                                     pT_e3 = childl3 -> pt(); pT_e4 = childl4 -> pt();
-                                    eta_e3 = childl3 -> eta(); eta_e4 = childl4 -> eta();
-                                    phi_e3 = childl3 -> phi(); phi_e4 = childl4 -> phi();
+                                    eta_e3 = eta_l3 = childl3 -> eta(); eta_e4 = eta_l4 =childl4 -> eta();
+                                    phi_e3 = phi_l3 =childl3 -> phi(); phi_e4 = phi_l4 = childl4 -> phi();
                                     e_e3 = childl3 -> e(); e_e4 = childl4 -> e();
                                     vec_e3 = get_PtEtaPhiEVector(pT_e3, eta_e3, phi_e3, e_e3);
                                     vec_e4 = get_PtEtaPhiEVector(pT_e4, eta_e4, phi_e4, e_e4);
                                     vec_l3l4 = vec_e3 + vec_e4;
                                     pT_l3l4 = vec_l3l4.Pt();
-                                    double pT_l3l4_2 = pT_e3 + pT_e4;
+                                    // double pT_l3l4_2 = pT_e3 + pT_e4;
                                     // cout << "Electrons __________" << endl;
                                     // cout << "e3 (Pt, Eta, Phi, E): " << "(" << vec_e3.Pt() << ", " << vec_e3.Eta() << ", " << vec_e3.Phi() << ", " << vec_e3.E() << ",)" << endl;
                                     // cout << "e4 (Pt, Eta, Phi, E): " << "(" << vec_e4.Pt() << ", " << vec_e4.Eta() << ", " << vec_e4.Phi() << ", " << vec_e4.E() << ",)" << endl;
@@ -362,14 +368,14 @@ StatusCode MyxAODAnalysis :: execute ()
                                 }
                                 if (childl3->absPdgId()==13){
                                     pT_u3 = childl3 -> pt(); pT_u4 = childl4 -> pt();
-                                    eta_u3 = childl3 -> eta(); eta_u4 = childl4 -> eta();
-                                    phi_u3 = childl3 -> phi(); phi_u4 = childl4 -> phi();
+                                    eta_u3 = eta_l3 = childl3 -> eta(); eta_u4 = eta_l4 =childl4 -> eta();
+                                    phi_u3 = phi_l3 =childl3 -> phi(); phi_u4 = phi_l4 = childl4 -> phi();
                                     e_u3 = childl3 -> e(); e_u4 = childl4 -> e();
                                     vec_u3 = get_PtEtaPhiEVector(pT_u3, eta_u3, phi_u3, e_u3);
                                     vec_u4 = get_PtEtaPhiEVector(pT_u4, eta_u4, phi_u4, e_u4);
                                     vec_l3l4 = vec_u3 + vec_u4;
                                     pT_l3l4 = vec_l3l4.Pt();
-                                    double pT_l3l4_2 = pT_u3 + pT_u4;
+                                    // double pT_l3l4_2 = pT_u3 + pT_u4;
                                     // cout << "Muons ~~~~~~~~~" << endl;
                                     // cout << "u3 (Pt, Eta, Phi, E): " << "(" << vec_u3.Pt() << ", " << vec_u3.Eta() << ", " << vec_u3.Phi() << ", " << vec_u3.E() << ",)" << endl;
                                     // cout << "u4 (Pt, Eta, Phi, E): " << "(" << vec_u4.Pt() << ", " << vec_u4.Eta() << ", " << vec_u4.Phi() << ", " << vec_u4.E() << ",)" << endl;
@@ -398,6 +404,13 @@ StatusCode MyxAODAnalysis :: execute ()
                                 phi_l3l4 = vec_l3l4.Phi();
                                 eta_4l = (vec_l1l2 + vec_l3l4).Eta();
                                 phi_4l = (vec_l1l2 + vec_l3l4).Phi();
+                                // Delta-R between leptons
+                                deltaR_l1l2 = get_deltaR(eta_l1, eta_l2, phi_l1, phi_l2);
+                                deltaR_l1l4 = get_deltaR(eta_l1, eta_l4, phi_l1, phi_l4);
+                                deltaR_l2l3 = get_deltaR(eta_l2, eta_l3, phi_l2, phi_l3);
+                                deltaR_l3l4 = get_deltaR(eta_l3, eta_l4, phi_l3, phi_l4);
+                                cout << "deltaR_l1l2: " << deltaR_l1l2 << " | deltaR_l1l4: " << deltaR_l1l4;
+                                cout << " | deltaR_l2l3: " << deltaR_l2l3 << " | deltaR_l3l4: " << deltaR_l3l4 << endl;
 
                             }//close Zd decay check
                         }//close Zd identity check
@@ -462,8 +475,11 @@ StatusCode MyxAODAnalysis :: execute ()
                 hist ("h_missingET") -> Fill(MissingET->sumet()/1000); // Basic MET
             }
 
-            //TEST HISTS
-            
+            /* Testing fill hists */
+            hist ("h_deltaR_l1l2") -> Fill(deltaR_l1l2);
+            hist ("h_deltaR_l1l4") -> Fill(deltaR_l1l4);
+            hist ("h_deltaR_l2l3") -> Fill(deltaR_l2l3);
+            hist ("h_deltaR_l3l4") -> Fill(deltaR_l3l4);
             
             
         }//Close 44 bitmask

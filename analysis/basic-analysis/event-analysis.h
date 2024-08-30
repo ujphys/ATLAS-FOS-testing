@@ -119,6 +119,10 @@ public:
     TH1* h_missingET_NonInt;
 
     /*  Test these   */
+    TH1D* h_deltaR_l1l2 = new TH1D();
+    TH1D* h_deltaR_l1l4 = new TH1D();
+    TH1D* h_deltaR_l2l3 = new TH1D();
+    TH1D* h_deltaR_l3l4 = new TH1D();
     
 
     /*  Possible future histograms   */
