@@ -36,14 +36,6 @@ public:
     h_pT_2l_leading --> transverse momentum for leading dilepton (2l)
     */
 
-    //Mass hists //
-    TH1D* h_m_H = new TH1D();
-    TH1D* h_m_S1 = new TH1D();
-    TH1D* h_m_S2 = new TH1D();
-    TH1D* h_m_Zd1 = new TH1D(); //Zd
-    TH1D* h_m_Zd2 = new TH1D();
-    TH1D* h_m_Zd3 = new TH1D();
-    TH1D* h_m_Zd4 = new TH1D();
     //pT hists //
     TH1D* h_pT_H = new TH1D();
     TH1D* h_pT_S1 = new TH1D();
@@ -92,6 +84,14 @@ public:
     TH1D* h_phi_u2 = new TH1D();
     TH1D* h_phi_u3 = new TH1D();
     TH1D* h_phi_u4 = new TH1D();
+    //Mass hists //
+    TH1D* h_m_H = new TH1D();
+    TH1D* h_m_S1 = new TH1D();
+    TH1D* h_m_S2 = new TH1D();
+    TH1D* h_m_Zd1 = new TH1D(); //Zd
+    TH1D* h_m_Zd2 = new TH1D();
+    TH1D* h_m_Zd3 = new TH1D();
+    TH1D* h_m_Zd4 = new TH1D();
     //Energy hists //
     // TH1D* h_e_e1 = new TH1D(); //Electrons
     // TH1D* h_e_e2 = new TH1D();
@@ -105,6 +105,12 @@ public:
     TH1D* h_pT_2l_leading = new TH1D();
     TH1D* h_pT_2l_subleading = new TH1D();
     TH1D* h_pT_4l = new TH1D();
+    TH1D* h_eta_l1l2 = new TH1D();
+    TH1D* h_eta_l3l4 = new TH1D();
+    TH1D* h_eta_4l = new TH1D();
+    TH1D* h_phi_l1l2 = new TH1D();
+    TH1D* h_phi_l3l4 = new TH1D();
+    TH1D* h_phi_4l = new TH1D();
     TH1D* h_invMass_l1l2 = new TH1D();
     TH1D* h_invMass_l3l4 = new TH1D();
     TH1D* h_invMass_4l = new TH1D();
@@ -113,12 +119,7 @@ public:
     TH1* h_missingET_NonInt;
 
     /*  Test these   */
-    TH1D* h_eta_l1l2 = new TH1D();
-    TH1D* h_eta_l3l4 = new TH1D();
-    TH1D* h_eta_4l = new TH1D();
-    TH1D* h_phi_l1l2 = new TH1D();
-    TH1D* h_phi_l3l4 = new TH1D();
-    TH1D* h_phi_4l = new TH1D();
+    
 
     /*  Possible future histograms   */
     // TH1D* h_pT_ee12 = new TH1D();
