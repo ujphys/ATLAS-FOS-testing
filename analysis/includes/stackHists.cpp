@@ -23,8 +23,8 @@ void stackHists(TFile* f_in, string outpath, string draw_option,
                 string array[], int array_size, string array_descriptor)
 { 
   // Initialize THStack
-   string hist_name_S = "h_" + variable + particle + "_" + other + "_" + array_descriptor;
-   string h_stack_S = hist_name_S + "_Stacked";
+   string hist_name_S = "h_" + variable + particle + "_" + array_descriptor;
+   string h_stack_S = hist_name_S + "_" + other + "_Stacked";
    auto h_stack = new THStack("h_stack", (h_stack_S).c_str() );
    
    // Initialize canvas, legend
@@ -42,7 +42,7 @@ void stackHists(TFile* f_in, string outpath, string draw_option,
     for (int i = 0; i < array_size; i++){
         // cout << "__ Array element " << i << ": " << array[i] << " __" << endl;
         // Get histogram from TFile, add to h_stack
-        string h_copyS = hist_name_S + array[i];
+        string h_copyS = hist_name_S + array[i] + "_" + other;
         cout << "Getting hist: " << h_copyS << endl;
         TH1D *h_copy = (TH1D*)f_in -> Get( (h_copyS).c_str() );
         // cout << "Largest bin: " << h_copy -> GetMaximumBin() << endl;
@@ -52,14 +52,14 @@ void stackHists(TFile* f_in, string outpath, string draw_option,
         leg_c1 -> AddEntry(h_copy, (leg_c1_S).c_str(), "f");
     }
 
-   //Draw plot
+   // Draw plot
    h_stack -> Draw( (draw_option).c_str() );
    leg_c1 -> Draw();
-   //Save plot
+   // Save plot
    string canvas_S = "plots/" + h_stack_S + ".pdf";
-//    string canvas_S = "plots/kTempMap_pngs/" + h_stack_S + ".png";
+//    string canvas_S = "plots/" + h_stack_S + ".png";
    cout << "Saving plot: " << outpath + canvas_S << endl;
    c1 -> Print( (outpath + canvas_S).c_str() );
-   //Clear canvas
+   // Clear canvas
    c1 -> Clear();
 }

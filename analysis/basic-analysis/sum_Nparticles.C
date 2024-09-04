@@ -1,5 +1,5 @@
-#include "../../includes/sumHists.cpp"
-#include "../../includes/setVariables.cpp"
+#include "../includes/sumHists.cpp"
+#include "../includes/setVariables.cpp"
 
 using namespace std;
 
@@ -27,15 +27,15 @@ void sum_Nparticles()
 
    // SET FILE PATHS HERE
    string f_path = "/Users/matt/Documents/work/0-CERN-UJ-HEP/particle/hZdZd/code_ZdZd/git_Zd/"; //Working dir
-   string inFile_S = f_path + "kinematics-2024-05-10_COPY1/hist-reco_mH"; //In kinematics file
-   string outFile_S = f_path + "tests_2024-07-03/test_sum_Nparticles2.root"; //In kinematics file
+   string inFile_S = f_path + "tests_sep-2024/kinematics-2024-09-04/hist-reco_mH"; //In kinematics file
+   string outFile_S = f_path + "tests_sep-2024/summed_2024-09-04.root"; //In kinematics file
    //Create output file
    TFile *outFile = new TFile( (outFile_S).c_str(), "recreate" );
    //Initialize some variables
    string mH_masses[11] = {"300", "350", "400", "450", "500", "550", "600", "650", "700", "750", "800"}; //Different H particle masses
-   string particles[] = {"H", "S", "Zd", "e", "u", "missingET", "missingET_NonInt"}; //Different kinds of particles
-   int num_particles[] = {1,  2,    4,    4,    4,    1,          1}; //Corresponds to the how many of each particle there are
-   std::vector<std::string> variables = {"", "phi_", "eta_", "pT_", "m"};
+   string particles[] = {"H", "S", "Zd", "e", "u", "2l_leading", "2l_subleading", "4l", "l1l2", "l2l3", "l1l4", "l3l4", "missingET_NonInt", "missingET"}; //Different kinds of particle objects
+   int num_particles[] = {1,  2,    4,    4,    4,    1,             1,             1,    1,      1,     1,       1,       1,                   1}; //Corresponds to the how many of each particle there are
+   // std::vector<std::string> vars = {"", "phi_", "eta_", "pT_", "m"};
    string hist_data = "_all"; //Extra string in hist name: scaled, unscaled, all, etc.
 
    //Loop over different files (defined by different mH)
@@ -48,17 +48,21 @@ void sum_Nparticles()
       for (int p = 0; p < sizeof(particles)/sizeof(particles[0]); p++){
          cout << "~~~~~~~~ Getting particle: " << particles[p] << " ~~~~~~~~" << endl;
          //Set variables based on particle
-         std::vector<std::string> relevant_variables = setVariables(particles[p], variables);
+         // std::vector<std::string> relevant_variables = setVariables(particles[p], var_list);
+         vector<std::string> relevant_variables;
+         setVariables(particles[p], relevant_variables);
 
          //Loop over variables
          for (int v = 0; v < relevant_variables.size(); v++){
             cout << "---- Getting variable: " << relevant_variables[v] << " ----" << endl;
             //Initialize h_sum
             string hist_nameS = "h_" + relevant_variables[v] + particles[p];
-            string h_sumS = hist_nameS + hist_data + "_mH" + m;
+            string h_sumS = hist_nameS + "_mH" + m + hist_data;
             cout << "Initializing: " << h_sumS << endl;
             TH1D *h_test = (TH1D*)inFile_mH -> Get( (hist_nameS).c_str() );
-            if (num_particles[p] > 1){    h_test = (TH1D*)inFile_mH -> Get( (hist_nameS + "1").c_str() );   }
+            if (num_particles[p] > 1){
+               h_test = (TH1D*)inFile_mH -> Get( (hist_nameS + "1").c_str() );
+            }
             TH1D *h_sum = new TH1D( (h_sumS).c_str(), (h_sumS).c_str(), h_test->GetNbinsX(),            //Bins
                                                                         h_test->GetXaxis()->GetXmin(),  //x_min
                                                                         h_test->GetXaxis()->GetXmax()); //x_max

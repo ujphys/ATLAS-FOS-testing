@@ -118,6 +118,7 @@ public:
     TH1D* h_deltaR_l1l4 = new TH1D();
     TH1D* h_deltaR_l2l3 = new TH1D();
     TH1D* h_deltaR_l3l4 = new TH1D();
+    
     //MET hists //
     TH1* h_missingET;
     TH1* h_missingET_NonInt;
@@ -126,6 +127,7 @@ public:
     
 
     /*  Possible future histograms   */
+    // TH1D* h_deltaR_4l = new TH1D(); //Delta-R between the two dilepton pairs
     // TH1D* h_pT_ee12 = new TH1D();
     // TH1D* h_pT_ee34 = new TH1D();
     // TH1D* h_pT_uu12 = new TH1D();
