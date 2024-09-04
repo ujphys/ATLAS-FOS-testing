@@ -86,10 +86,10 @@ StatusCode MyxAODAnalysis :: initialize ()
     ANA_CHECK (book (TH1D("h_phi_Zd2", "h_phi_Zd2", 100, -4, 4)));
     ANA_CHECK (book (TH1D("h_phi_Zd3", "h_phi_Zd3", 100, -4, 4)));
     ANA_CHECK (book (TH1D("h_phi_Zd4", "h_phi_Zd4", 100, -4, 4)));
-    ANA_CHECK (book (TH1D("h_m_Zd1", "h_m_Zd1", 100, 10, 30))); //mass
-    ANA_CHECK (book (TH1D("h_m_Zd2", "h_m_Zd2", 100, 10, 30)));
-    ANA_CHECK (book (TH1D("h_m_Zd3", "h_m_Zd3", 100, 10, 30)));
-    ANA_CHECK (book (TH1D("h_m_Zd4", "h_m_Zd4", 100, 10, 30)));
+    ANA_CHECK (book (TH1D("h_m_Zd1", "h_m_Zd1", 1000, 19.99, 20.001))); //mass
+    ANA_CHECK (book (TH1D("h_m_Zd2", "h_m_Zd2", 1000, 19.99, 20.001)));
+    ANA_CHECK (book (TH1D("h_m_Zd3", "h_m_Zd3", 1000, 19.99, 20.001)));
+    ANA_CHECK (book (TH1D("h_m_Zd4", "h_m_Zd4", 1000, 19.99, 20.001)));
     //Visible leptons (e; u;)
     ANA_CHECK (book (TH1D("h_pT_e1", "h_pT_e1", 100, 0, 500)));     ANA_CHECK (book (TH1D("h_pT_u1", "h_pT_u1", 100, 0, 500))); //pT
     ANA_CHECK (book (TH1D("h_pT_e2", "h_pT_e2", 100, 0, 500)));     ANA_CHECK (book (TH1D("h_pT_u2", "h_pT_u2", 100, 0, 500)));
@@ -113,8 +113,8 @@ StatusCode MyxAODAnalysis :: initialize ()
     ANA_CHECK (book (TH1D("h_phi_l1l2", "h_phi_l1l2", 100, -4, 4))); //phi
     ANA_CHECK (book (TH1D("h_phi_l3l4", "h_phi_l3l4", 100, -4, 4)));
     ANA_CHECK (book (TH1D("h_phi_4l", "h_phi_4l", 100, -4, 4)));
-    ANA_CHECK (book (TH1D("h_invMass_l1l2", "h_invMass_l1l2", 100, 10, 30))); //invariant mass
-    ANA_CHECK (book (TH1D("h_invMass_l3l4", "h_invMass_l3l4", 100, 10, 30)));
+    ANA_CHECK (book (TH1D("h_invMass_l1l2", "h_invMass_l1l2", 1000, 19.99, 20.001))); //invariant mass
+    ANA_CHECK (book (TH1D("h_invMass_l3l4", "h_invMass_l3l4", 1000, 19.99, 20.001)));
     ANA_CHECK (book (TH1D("h_invMass_4l", "h_invMass_4l", 100, 60, 200)));
     ANA_CHECK (book (TH1D("h_deltaR_l1l2","h_deltaR_l1l2", 100, 0, 8))); //delta-R
     ANA_CHECK (book (TH1D("h_deltaR_l1l4","h_deltaR_l1l4", 100, 0, 8)));
