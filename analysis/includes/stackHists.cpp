@@ -24,7 +24,7 @@ void stackHists(TFile* f_in, string outpath, string draw_option,
 { 
   // Initialize THStack
    string hist_name_S = "h_" + variable + particle + "_" + array_descriptor;
-   string h_stack_S = hist_name_S + "_Stacked";
+   string h_stack_S = hist_name_S + "_" + other + "_Stacked";
    auto h_stack = new THStack("h_stack", (h_stack_S).c_str() );
    
    // Initialize canvas, legend
@@ -52,14 +52,14 @@ void stackHists(TFile* f_in, string outpath, string draw_option,
         leg_c1 -> AddEntry(h_copy, (leg_c1_S).c_str(), "f");
     }
 
-   //Draw plot
+   // Draw plot
    h_stack -> Draw( (draw_option).c_str() );
    leg_c1 -> Draw();
-   //Save plot
+   // Save plot
    string canvas_S = "plots/" + h_stack_S + ".pdf";
-//    string canvas_S = "plots/kTempMap_pngs/" + h_stack_S + ".png";
+//    string canvas_S = "plots/" + h_stack_S + ".png";
    cout << "Saving plot: " << outpath + canvas_S << endl;
    c1 -> Print( (outpath + canvas_S).c_str() );
-   //Clear canvas
+   // Clear canvas
    c1 -> Clear();
 }

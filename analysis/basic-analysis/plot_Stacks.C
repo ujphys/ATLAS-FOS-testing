@@ -22,8 +22,8 @@ void plot_Stacks()
 
     // SET FILE PATHS HERE
     string f_path = "/Users/matt/Documents/work/0-CERN-UJ-HEP/particle/hZdZd/code_ZdZd/git_Zd/"; //Working dir
-    // string inFile_S = f_path + "tests_aug-2024/summed_particles.root"; //In kinematics file
-    string inFile_S = f_path + "tests_aug-2024/scaled_particles.root"; //In kinematics file
+    // string inFile_S = f_path + "tests_sep-2024/summed_2024-09-04.root"; //In kinematics file
+    string inFile_S = f_path + "tests_sep-2024/scaled_2024-09-04.root"; //In kinematics file
     //Create input and output files
     TFile *inFile = new TFile( (inFile_S).c_str(), "read" );
     //Initialize some variables
@@ -45,7 +45,7 @@ void plot_Stacks()
          cout << "-- Getting variable: " << relevant_variables[v] << " --" << endl;
 
          // Call stackHists
-         stackHists(inFile, f_path+"tests_aug-2024/", "pfc hist",
+         stackHists(inFile, f_path+"tests_sep-2024/", "pfc hist",
                 relevant_variables[v], particles[p], "scale",
                 mH_masses, sizeof(mH_masses) / sizeof(mH_masses[0]), "mH");
 

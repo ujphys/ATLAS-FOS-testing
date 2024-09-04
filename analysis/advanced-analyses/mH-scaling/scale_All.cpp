@@ -1,5 +1,5 @@
-#include "../../../includes/scaleHist.cpp"
-#include "../../../includes/setVariables.cpp"
+#include "../../includes/scaleHist.cpp"
+#include "../../includes/setVariables.cpp"
 
 using namespace std;
 
@@ -22,8 +22,8 @@ void scale_All()
 
    // SET FILE PATHS HERE
    string f_path = "/Users/matt/Documents/work/0-CERN-UJ-HEP/particle/hZdZd/code_ZdZd/git_Zd/"; //Working dir
-   string inFile_S = f_path + "tests_aug-2024/summed_particles.root"; //In kinematics file
-   string outFile_S = f_path + "tests_aug-2024/scaled_particles.root"; //Out scaled kinematics file
+   string inFile_S = f_path + "tests_sep-2024/summed_2024-09-04.root"; //In kinematics file
+   string outFile_S = f_path + "tests_sep-2024/scaled_2024-09-04.root"; //Out scaled kinematics file
    //Create input and output files
    TFile *inFile = new TFile( (inFile_S).c_str(), "read" );
    TFile *outFile = new TFile( (outFile_S).c_str(), "recreate" );

@@ -10,6 +10,23 @@ The repository is divided into two main sections:
 
 
 ## How to run
+### Generation
+### Basic Analysis
+- Set up build, source and run directories (assumed to be done on lxplus here)
+- Ensure the latest versions of event-analysis.cxx and event-analysis.h are used
+- In build/
+    - setupATLAS
+    - asetup AnalysisBase,24.2.35
+    - cmake ../source/
+    - make
+- In run/
+    - source ../build/x86_64-el9-gcc13-opt/setup.sh
+    - ATestRun_eljob.py --submission-dir=submitDir
+    - Repeat for any more DAOD files (you can edit the inputFilePath in ATestRun_eljob.py)
+- On your own PC, from repository main directory (4lMET_Ana/)
+    - scp the hist-reco.root files from the folder generated in the previous step
+    - root basic-analysis/sum_Nparticles.C
+    - root basic-analysis/plot_Stacks.C
 
 ## Environments
 ### Generation code
@@ -60,13 +77,8 @@ Analysis code has 3 sections
 - basic-analysis/
 - - 
 - advanced-analyses/ - codes for specific analyses
-- - For example scaling based on a variable or looking at variables when boosted into a new reference frame
-- - These should each have their own README
-- - mH-scaling/ - Investigates H>2S>4Zd>4l+MET decays over multiple mH masses, scaling all histograms acc. to an mH-specific normalization factor
-- - - crystal-ball-fits/ - Generates normalization factors by fitting a double-sided crystal ball function to non-resonant di-Higgs data
-- - - event-analysis/ - extracts kinematics from MC data
-- - - plotting/ - plots 
-- - - scaling-code/ - scales kinematics acc. to normalization factors, saves to .root file
+- - For example scaling based on a variable, looking at variables when boosted into a new reference frame, etc.
+- - How to run each analysis is detailed in the README.md file in the advance-analyses/ directory.
 
 ### Languages used
  - Generation: ROOT, C++, Python, Shell, MadGraph, Pythia
