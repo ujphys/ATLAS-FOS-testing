@@ -23,7 +23,7 @@ void stackHists(TFile* f_in, string outpath, string draw_option,
                 string array[], int array_size, string array_descriptor)
 { 
   // Initialize THStack
-   string hist_name_S = "h_" + variable + particle + "_" + other + "_" + array_descriptor;
+   string hist_name_S = "h_" + variable + particle + "_" + array_descriptor;
    string h_stack_S = hist_name_S + "_Stacked";
    auto h_stack = new THStack("h_stack", (h_stack_S).c_str() );
    
@@ -42,7 +42,7 @@ void stackHists(TFile* f_in, string outpath, string draw_option,
     for (int i = 0; i < array_size; i++){
         // cout << "__ Array element " << i << ": " << array[i] << " __" << endl;
         // Get histogram from TFile, add to h_stack
-        string h_copyS = hist_name_S + array[i];
+        string h_copyS = hist_name_S + array[i] + "_" + other;
         cout << "Getting hist: " << h_copyS << endl;
         TH1D *h_copy = (TH1D*)f_in -> Get( (h_copyS).c_str() );
         // cout << "Largest bin: " << h_copy -> GetMaximumBin() << endl;
