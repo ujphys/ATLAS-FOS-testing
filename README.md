@@ -12,8 +12,8 @@ The repository is divided into two main sections:
 ## How to run
 ### Generation
 ### Basic Analysis
-- Set up build, source and run directories (assumed to be done on lxplus here)
-- Ensure the latest versions of event-analysis.cxx and event-analysis.h are used
+- Copy the analysis/source/ directory to your working directory (this is assumed to be on lxplus)
+- In that working directory, create build/ and run/ directories
 - In build/
     - setupATLAS
     - asetup AnalysisBase,24.2.35
